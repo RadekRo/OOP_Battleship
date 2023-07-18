@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Battleship!");
+            Battleship battleship = new Battleship();
+            battleship.SayHello();
         }
     }
 }
