@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace OOP_Battleship
 {
     internal class Input
     {
+        public Input()
+        {
+
+        }
         string invalidMessage = "Invalid input";
         public int GetDigitInput()
         {
@@ -53,12 +52,18 @@ namespace OOP_Battleship
 
         public bool ValidateCoordinates(string userInput)
         {
-            userInput = userInput.ToUpper();
+            userInput.ToUpper();
             string pattern = @"^([A-J]([1-9]|10)|([1-9]|10)[A-J])$";
             return Regex.IsMatch(userInput, pattern, RegexOptions.IgnoreCase);
         }
-        public (int x, int y) TranslateCoordinates(string userInput)
+        public (int x, int y) TranslateCoordinates(string validUserInput)
         {
+            validUserInput.ToUpper();
+            string letterPart = Regex.Match(validUserInput, @"[A-J]+").Value;
+            string numberPart = Regex.Match(validUserInput, @"[1-9]|10").Value;
+            int x = Convert.ToInt32(Encoding.ASCII.GetBytes(new[] { letterPart[0] })[0]) - 65;
+            int y = Convert.ToInt32(numberPart) - 1;
+            return (x, y);
 
         }
     }
