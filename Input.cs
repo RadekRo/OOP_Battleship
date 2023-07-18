@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace OOP_Battleship
@@ -46,6 +48,18 @@ namespace OOP_Battleship
         public bool ValidateStringInput(string stringInput)
         {
             return (stringInput != invalidMessage);
+        }
+
+
+        public bool ValidateCoordinates(string userInput)
+        {
+            userInput = userInput.ToUpper();
+            string pattern = @"^([A-J]([1-9]|10)|([1-9]|10)[A-J])$";
+            return Regex.IsMatch(userInput, pattern, RegexOptions.IgnoreCase);
+        }
+        public (int x, int y) TranslateCoordinates(string userInput)
+        {
+
         }
     }
 }
