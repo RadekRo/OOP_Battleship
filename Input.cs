@@ -8,7 +8,7 @@ namespace OOP_Battleship
 {
     internal class Input
     {
-
+        string invalidMessage = "Invalid input";
         public int GetDigitInput()
         {
             var UserInput = Console.ReadKey();
@@ -26,15 +26,26 @@ namespace OOP_Battleship
 
         public string GetStringInput()
         {
-            string UserInput = Console.ReadLine();
+            var UserInput = Console.ReadLine();
             if (!string.IsNullOrEmpty(UserInput))
             {
                 return UserInput;
             }
             else
             {
-                return "Invalid Input";
+                return invalidMessage;
             }
+        }
+
+        public bool ValidateOptionInput(int maxOptionNumber, int digitInput)
+        {
+            return (digitInput > 0 && digitInput <= maxOptionNumber);
+
+        }
+
+        public bool ValidateStringInput(string stringInput)
+        {
+            return (stringInput != invalidMessage);
         }
     }
 }
