@@ -5,6 +5,7 @@ namespace OOP_Battleship
 {
     internal class Input
     {
+
         public Input()
         {
 
@@ -12,10 +13,11 @@ namespace OOP_Battleship
         string invalidMessage = "Invalid input";
         public int GetDigitInput()
         {
-            var UserInput = Console.ReadKey();
-            if (char.IsDigit(UserInput.KeyChar))
+            var userInput = Console.ReadKey();
+            Console.WriteLine();
+            if (char.IsDigit(userInput.KeyChar))
             {
-                return Convert.ToInt32(UserInput);
+                return int.Parse(userInput.KeyChar.ToString());
             }
             else
             {
@@ -52,13 +54,13 @@ namespace OOP_Battleship
 
         public bool ValidateCoordinates(string userInput)
         {
-            userInput.ToUpper();
+            userInput = userInput.ToUpper();
             string pattern = @"^([A-J]([1-9]|10)|([1-9]|10)[A-J])$";
             return Regex.IsMatch(userInput, pattern, RegexOptions.IgnoreCase);
         }
         public (int x, int y) TranslateCoordinates(string validUserInput)
         {
-            validUserInput.ToUpper();
+            validUserInput = validUserInput.ToUpper();
             string letterPart = Regex.Match(validUserInput, @"[A-J]+").Value;
             string numberPart = Regex.Match(validUserInput, @"[1-9]|10").Value;
             int x = Convert.ToInt32(Encoding.ASCII.GetBytes(new[] { letterPart[0] })[0]) - 65;
