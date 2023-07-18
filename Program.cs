@@ -5,7 +5,6 @@
         static void Main(string[] args)
         {
             Battleship battleship = new Battleship();
-            battleship.SayHello();
         }
     }
 }
