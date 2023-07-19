@@ -91,7 +91,22 @@ namespace OOP_Battleship
 
         }
 
+        public void CheckIfAlive()
 
+        {
+            int fleetSize = this.Fleet.Count;
+            foreach (var ship in this.Fleet)
+            {
+                if (ship.TrueForAll(ship.squer.SquerStatus == "sink"))
+                {
+                    fleetSize--;
+                }
+            }
+            if (fleetSize == 0)
+            {
+                this.IsAlive = false;
+            }
+        }
 
 
 
