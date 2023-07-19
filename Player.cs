@@ -8,7 +8,7 @@ namespace OOP_Battleship
 {
     internal class Player
     {
-        private string? _name;
+        private string _name;
         public string Name
         {
             get
@@ -21,14 +21,12 @@ namespace OOP_Battleship
             }
         }
         public List<Ship> Fleet { get; set; }
-        public bool IsAlive { get; set; }
+        public bool IsAlive { get; set; } = true;
+
 
         public int Number { get; set; }
 
-        public Player()
-        {
-            this.IsAlive = true;
-        }
+
 
 
     }
