@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -60,56 +61,57 @@ namespace OOP_Battleship
         {
             if (shootResult == "Hit")
             {
-                return ship.TrueForAll(ship.squer.SquerStatus == "hit");
+                List<Square> list = ship.elements;
+                return list.All(n => n.SquerStatus == "hit");
             }
             return false;
         }
-
-        public void ShipSink(Ship ship)
-        {
-            foreach (var squer in ship)
-            {
-                squer.SquerStatus = "sink";
-            }
-        }
-        public string Shoot(Player oponent)
-        {
-            (int x, int y) coordinates = GetShootCoordinates();
-            foreach (var ship in oponent.Fleet)
-            {
-                string shootResult = CheckIfHit(coordinates, ship);
-                if (shootResult == "hit")
+        /**
+                public void ShipSink(Ship ship)
                 {
-                    if (CheckIfShipSink(shootResult, ship))
+                    foreach (var squer in ship)
                     {
-                        ShipSink(ship);
-                        return "Ship sunk!";
+                        squer.SquerStatus = "sink";
                     }
-                    return "Ship hit!";
                 }
-            }
-            return "Miss!";
-
-        }
-
-        public void CheckIfAlive()
-
-        {
-            int fleetSize = this.Fleet.Count;
-            foreach (var ship in this.Fleet)
-            {
-                if (ship.TrueForAll(ship.squer.SquerStatus == "sink"))
+                public string Shoot(Player oponent)
                 {
-                    fleetSize--;
+                    (int x, int y) coordinates = GetShootCoordinates();
+                    foreach (var ship in oponent.Fleet)
+                    {
+                        string shootResult = CheckIfHit(coordinates, ship);
+                        if (shootResult == "hit")
+                        {
+                            if (CheckIfShipSink(shootResult, ship))
+                            {
+                                ShipSink(ship);
+                                return "Ship sunk!";
+                            }
+                            return "Ship hit!";
+                        }
+                    }
+                    return "Miss!";
+
                 }
-            }
-            if (fleetSize == 0)
-            {
-                this.IsAlive = false;
-            }
-        }
 
+                public void CheckIfAlive()
 
+                {
+                    int fleetSize = this.Fleet.Count;
+                    foreach (var ship in this.Fleet)
+                    {
+                        if (ship.TrueForAll(ship.squer.SquerStatus == "sink"))
+                        {
+                            fleetSize--;
+                        }
+                    }
+                    if (fleetSize == 0)
+                    {
+                        this.IsAlive = false;
+                    }
+                }
+
+                */
 
     }
 
