@@ -75,18 +75,20 @@ namespace OOP_Battleship
                 square.SquerStatus = "sink";
             }
         }
-        /*
+
         public string Shoot(Player oponent)
         {
             (int x, int y) coordinates = GetShootCoordinates();
-            foreach (var ship in oponent.Fleet)
+            List<Ship> oponentFleet = oponent.Fleet;
+            for (int i = 0; i < oponentFleet.Count; i++)
             {
-                string shootResult = CheckIfHit(coordinates, ship);
-                if (shootResult == "hit")
+                Ship checkShip = oponentFleet[i];
+                string shootResult = CheckIfHit(coordinates, checkShip, checkShip.ShipLenght);
+                if (shootResult == "Hit!")
                 {
-                    if (CheckIfShipSink(shootResult, ship))
+                    if (CheckIfShipSink(shootResult, checkShip))
                     {
-                        ShipSink(ship);
+                        ShipSink(checkShip, checkShip.ShipLenght);
                         return "Ship sunk!";
                     }
                     return "Ship hit!";
@@ -95,7 +97,7 @@ namespace OOP_Battleship
             return "Miss!";
 
         }
-
+        /*
         public void CheckIfAlive()
 
         {
