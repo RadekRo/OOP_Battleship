@@ -10,7 +10,7 @@
 
         }
 
-        public bool AreCoordinatsEmpty((int x, int y) coordinates, Board board)
+        public virtual bool AreCoordinatsGood((int x, int y) coordinates, Board board)
         {
             Square squer = board.ocean[coordinates.x, coordinates.y];
             return squer.SquerStatus == "empty";
@@ -23,7 +23,7 @@
                 do
                 {
                     shootCoordinates = GetShootCoordinates();
-                } while (!AreCoordinatsEmpty(shootCoordinates, board));
+                } while (!AreCoordinatsGood(shootCoordinates, board));
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
