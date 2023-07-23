@@ -23,7 +23,7 @@ namespace OOP_Battleship
                 if (square.SquerStatus == "sink")
                 {
                     (int x, int y) = square.Position;
-                    List<(int, int)> positionsToCheck = new List<(int, int)>();
+                    HashSet<(int, int)> positionsToCheck = new HashSet<(int, int)>();
                     if (x - 1 >= 0)
                     {
                         positionsToCheck.Add((x - 1, y));
@@ -43,14 +43,17 @@ namespace OOP_Battleship
                     if (x + 1 < 10)
                     {
                         positionsToCheck.Add((x + 1, y));
+
                         if (y - 1 >= 0)
                         {
                             positionsToCheck.Add((x + 1, y - 1));
+                            positionsToCheck.Add((x, y - 1));
 
                         }
                         if (y + 1 < 10)
                         {
                             positionsToCheck.Add((x + 1, y + 1));
+                            positionsToCheck.Add((x, y + 1));
 
                         }
 
@@ -63,6 +66,7 @@ namespace OOP_Battleship
                         }
 
                     }
+                    positionsToCheck.Clear();
                 }
             }
         }
