@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_Battleship
+﻿namespace OOP_Battleship
 {
     internal class Player
     {
@@ -24,7 +17,7 @@ namespace OOP_Battleship
         public List<Ship> Fleet { get; set; }
         public bool IsAlive { get; private set; } = true;
 
-        public int PlayerNumber { get; set; }
+        public int PlayerNumber { get; init; }
 
 
         public (int x, int y) GetShootCoordinates()
@@ -41,10 +34,10 @@ namespace OOP_Battleship
 
         }
 
-        public string CheckIfHit((int x, int y) shootCoordinates, Ship ship, int length)
+        protected string CheckIfHit((int x, int y) shootCoordinates, Ship ship)
         {
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < ship.elements.Count; i++)
             {
                 Square squer = ship.elements[i];
                 if (shootCoordinates == squer.Position && squer.SquerStatus == "ship")
@@ -57,38 +50,35 @@ namespace OOP_Battleship
             return "Miss!";
         }
 
-        public bool CheckIfShipSink(string shootResult, Ship ship)
+        protected bool CheckIfShipSink(string shootResult, Ship ship)
         {
-            if (shootResult == "Hit")
-            {
-                List<Square> list = ship.elements;
-                return list.All(n => n.SquerStatus == "hit");
-            }
-            return false;
+
+            List<Square> list = ship.elements;
+            return list.All(n => n.SquerStatus == "hit");
+
         }
 
-        public void ShipSink(Ship ship, int shipLenght)
+        protected void ShipSink(Ship ship)
         {
-            for (int i = 0; i < shipLenght; i++)
+            for (int i = 0; i < ship.elements.Count; i++)
             {
                 Square square = ship.elements[i];
                 square.SquerStatus = "sink";
             }
         }
 
-        public string Shoot(Player oponent)
+        public string Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
-            (int x, int y) coordinates = GetShootCoordinates();
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
-                Ship checkShip = oponentFleet[i];
-                string shootResult = CheckIfHit(coordinates, checkShip, checkShip.ShipLenght);
+                string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
                 if (shootResult == "Hit!")
                 {
-                    if (CheckIfShipSink(shootResult, checkShip))
+                    if (CheckIfShipSink(shootResult, oponentFleet[i]))
                     {
-                        ShipSink(checkShip, checkShip.ShipLenght);
+                        ShipSink(oponentFleet[i]);
+                        oponent.CheckIfAllSunk();
                         return "Ship sunk!";
                     }
                     return "Ship hit!";
@@ -97,14 +87,13 @@ namespace OOP_Battleship
             return "Miss!";
 
         }
-        /*
-        public void CheckIfAlive()
 
+        private void CheckIfAllSunk()
         {
             int fleetSize = this.Fleet.Count;
-            foreach (var ship in this.Fleet)
+            foreach (Ship ship in this.Fleet)
             {
-                if (ship.TrueForAll(ship.squer.SquerStatus == "sink"))
+                if (ship.elements.All(n => n.SquerStatus == "sink"))
                 {
                     fleetSize--;
                 }
@@ -113,9 +102,13 @@ namespace OOP_Battleship
             {
                 this.IsAlive = false;
             }
+
         }
 
-                */
+        public bool IsPlayerDead()
+        {
+            return this.IsAlive;
+        }
 
     }
 
