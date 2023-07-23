@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_Battleship
+﻿namespace OOP_Battleship
 {
-    internal class Player
+    class Player
     {
         private string _name;
         public string Name
@@ -21,12 +15,12 @@ namespace OOP_Battleship
             }
         }
         public List<Ship> Fleet { get; set; }
-        public bool IsAlive { get; set; } = true;
+        public bool IsAlive { get; private set; } = true;
 
-        public int Number { get; set; }
+        public int PlayerNumber { get; init; }
 
 
-        private (int x, int y) GetShootCoordinates()
+        public virtual (int x, int y) GetShootCoordinates()
         {
             Input input = new Input();
             string coordinates;
@@ -35,16 +29,17 @@ namespace OOP_Battleship
                 Console.WriteLine("Input Coordinates");
                 coordinates = input.GetStringInput();
             }
-            while (input.ValidateStringInput(coordinates) && input.ValidateCoordinates(coordinates));
+            while (!input.ValidateStringInput(coordinates) || !input.ValidateCoordinates(coordinates));
             return input.TranslateCoordinates(coordinates);
 
         }
 
-        private string CheckIfHit((int x, int y) shootCoordinates, Ship ship)
+        protected string CheckIfHit((int x, int y) shootCoordinates, Ship ship)
         {
 
-            foreach (var squer in ship)
+            for (int i = 0; i < ship.elements.Count; i++)
             {
+                Square squer = ship.elements[i];
                 if (shootCoordinates == squer.Position && squer.SquerStatus == "ship")
                 {
                     squer.SquerStatus = "hit";
@@ -55,33 +50,35 @@ namespace OOP_Battleship
             return "Miss!";
         }
 
-        private bool CheckIfShipSink(string shootResult, Ship ship)
+        protected bool CheckIfShipSink(string shootResult, Ship ship)
         {
-            if (shootResult == "Hit")
-            {
-                return ship.TrueForAll(ship.squer.SquerStatus == "hit");
-            }
-            return false;
+
+            List<Square> list = ship.elements;
+            return list.All(n => n.SquerStatus == "hit");
+
         }
 
-        private void ShipSink(Ship ship)
+        protected void ShipSink(Ship ship)
         {
-            foreach (var squer in ship)
+            for (int i = 0; i < ship.elements.Count; i++)
             {
-                squer.SquerStatus = "sink";
+                Square square = ship.elements[i];
+                square.SquerStatus = "sink";
             }
         }
-        public string Shoot(Player oponent)
+
+        public virtual string Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
-            (int x, int y) coordinates = GetShootCoordinates();
-            foreach (var ship in oponent.Fleet)
+            List<Ship> oponentFleet = oponent.Fleet;
+            for (int i = 0; i < oponentFleet.Count; i++)
             {
-                string shootResult = CheckIfHit(coordinates, ship);
-                if (shootResult == "hit")
+                string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
+                if (shootResult == "Hit!")
                 {
-                    if (CheckIfShipSink(shootResult, ship))
+                    if (CheckIfShipSink(shootResult, oponentFleet[i]))
                     {
-                        ShipSink(ship);
+                        ShipSink(oponentFleet[i]);
+                        oponent.CheckIfAllSunk();
                         return "Ship sunk!";
                     }
                     return "Ship hit!";
@@ -91,13 +88,12 @@ namespace OOP_Battleship
 
         }
 
-        public void CheckIfAlive()
-
+        public void CheckIfAllSunk()
         {
             int fleetSize = this.Fleet.Count;
-            foreach (var ship in this.Fleet)
+            foreach (Ship ship in this.Fleet)
             {
-                if (ship.TrueForAll(ship.squer.SquerStatus == "sink"))
+                if (ship.elements.All(n => n.SquerStatus == "sink"))
                 {
                     fleetSize--;
                 }
@@ -106,9 +102,13 @@ namespace OOP_Battleship
             {
                 this.IsAlive = false;
             }
+
         }
 
-
+        public bool IsPlayerDead()
+        {
+            return this.IsAlive;
+        }
 
     }
 
