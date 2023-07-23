@@ -1,6 +1,6 @@
 ﻿namespace OOP_Battleship
 {
-    internal class Player
+    class Player
     {
         private string _name;
         public string Name
@@ -20,7 +20,7 @@
         public int PlayerNumber { get; init; }
 
 
-        public (int x, int y) GetShootCoordinates()
+        public virtual (int x, int y) GetShootCoordinates()
         {
             Input input = new Input();
             string coordinates;
@@ -67,7 +67,7 @@
             }
         }
 
-        public string Shoot(Player oponent, (int x, int y) shootCoordinates)
+        public virtual string Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
@@ -88,7 +88,7 @@
 
         }
 
-        private void CheckIfAllSunk()
+        public void CheckIfAllSunk()
         {
             int fleetSize = this.Fleet.Count;
             foreach (Ship ship in this.Fleet)
