@@ -19,6 +19,8 @@ namespace OOP_Battleship
         {
             digitInput = input.GetDigitInput();
             Console.WriteLine(digitInput);
+            display.PrintMenu();
+            Run();
         }
         public void Run()
         {

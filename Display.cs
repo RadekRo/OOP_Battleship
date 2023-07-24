@@ -53,34 +53,34 @@ public class Game
 {
     // Inne składowe klasy Game
 
-    static void Main(string[] args)
-    {
-        Display display = new Display();
-        display.PrintMenu();
+    //static void Main(string[] args)
+    //{
+    //    Display display = new Display();
+    //    display.PrintMenu();
 
-        // Tutaj można dodać logikę obsługi wyboru w menu gry
-        // np. wywołanie funkcji odpowiedzialnej za rozpoczęcie nowej gry
+    //    // Tutaj można dodać logikę obsługi wyboru w menu gry
+    //    // np. wywołanie funkcji odpowiedzialnej za rozpoczęcie nowej gry
 
-        // Przykład użycia metody PrintBoard:
-        char[,] playerBoard = new char[,]
-        {
-            { '-', '-', '-', '-', '-', '-', '-', '-' },
-            { '-', '-', '-', '-', '-', '-', '-', '-' },
-            { '-', '-', '-', 'S', 'S', 'S', '-', '-' },
-            { '-', '-', '-', '-', '-', '-', '-', '-' },
-            { '-', 'C', 'C', 'C', 'C', '-', '-', '-' },
-            { '-', '-', '-', '-', '-', '-', '-', '-' },
-            { '-', '-', '-', '-', '-', '-', '-', '-' },
-            { '-', '-', '-', '-', '-', '-', '-', '-' }
-        };
+    //    // Przykład użycia metody PrintBoard:
+    //    char[,] playerBoard = new char[,]
+    //    {
+    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
+    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
+    //        { '-', '-', '-', 'S', 'S', 'S', '-', '-' },
+    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
+    //        { '-', 'C', 'C', 'C', 'C', '-', '-', '-' },
+    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
+    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
+    //        { '-', '-', '-', '-', '-', '-', '-', '-' }
+    //    };
 
-        display.PrintBoard(playerBoard);
+    //    display.PrintBoard(playerBoard);
 
-        // Przykład użycia metody PrintGameplay:
-        display.PrintGameplay();
+    //    // Przykład użycia metody PrintGameplay:
+    //    display.PrintGameplay();
 
-        // Przykład użycia metody PrintGameOver:
-        bool isPlayerWin = true;
-        display.PrintGameOver(isPlayerWin);
-    }
+    //    // Przykład użycia metody PrintGameOver:
+    //    bool isPlayerWin = true;
+    //    display.PrintGameOver(isPlayerWin);
+    //}
 }

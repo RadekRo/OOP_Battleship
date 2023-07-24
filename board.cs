@@ -22,13 +22,13 @@ public class Square
     public ShipType ShipType { get; set; } 
 }
 
-public class BoardFactory
+public class Board
 {
     private int rows;
     private int cols; 
-    private Square[,] ocean; 
+    public Square[,] ocean; 
 
-    public BoardFactory(int rows = 10, int cols = 10)
+    public Board(int rows = 10, int cols = 10)
     {
         this.rows = rows;
         this.cols = cols;
@@ -37,7 +37,8 @@ public class BoardFactory
         {
             for (int j = 0; j < cols; j++)
             {
-                ocean[i, j] = new Square(); 
+                ocean[i, j] = new Square();
+            }
         }
     }
 
@@ -57,7 +58,7 @@ public class BoardFactory
     {
         for (int i = 0; i < cols; i++)
         {
-            yield return ((char)(65 + i)).ToString(); )
+            yield return ((char)(65 + i)).ToString(); 
         }
     }
 
