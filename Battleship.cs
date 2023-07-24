@@ -10,9 +10,15 @@ namespace OOP_Battleship
     internal class Battleship
     {
 
-        //Display display = new Display();
-        //Input input = new Input();
+        private Display display = new Display();
+        private Input input = new Input();
+        private int digitInput;
 
+        public Battleship()
+        {
+            digitInput = input.GetDigitInput();
+            Console.WriteLine(digitInput);
+        }
         public void Run()
         {
 
