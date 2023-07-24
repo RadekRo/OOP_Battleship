@@ -10,7 +10,7 @@ public class Display
         Console.WriteLine("2. Display Highscores");
         Console.WriteLine("3. Exit");
         Console.WriteLine("---------------------");
-        Console.WriteLine("Enter your choice: ");
+        Console.Write("Enter your choice: ");
     }
 
     public void PrintBoard(char[,] board)
@@ -49,6 +49,17 @@ public class Display
             Console.WriteLine("Niestety, przegrałeś. Spróbuj jeszcze raz!");
         }
         Console.WriteLine("-----------------------");
+    }
+
+    public void HighScore()
+    {
+        Console.Clear();
+        Console.WriteLine("------- High Score -------");
+        Console.WriteLine("1. Henry 200 pts");
+        Console.WriteLine("2. George 200 pts");
+        Console.WriteLine("3. Mary 200 pts");
+        Console.WriteLine("--------------------------");
+        Console.WriteLine("Press '0' to return to Main Menu...");
     }
 }
 

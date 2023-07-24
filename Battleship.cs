@@ -60,13 +60,7 @@ namespace OOP_Battleship
 
         private void DisplayHighScore()
         {
-            Console.Clear();
-            Console.WriteLine("------- High Score -------");
-            Console.WriteLine("1. Henry 200 pts");
-            Console.WriteLine("2. George 200 pts");
-            Console.WriteLine("3. Mary 200 pts");
-            Console.WriteLine("--------------------------");
-            Console.WriteLine("Press '0' to return to Main Menu...");
+            display.HighScore();
             userInput = input.GetDigitInput();
         }
 
