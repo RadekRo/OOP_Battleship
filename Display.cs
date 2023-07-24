@@ -4,6 +4,7 @@ public class Display
 {
     public void PrintMenu()
     {
+        Console.Clear();
         Console.WriteLine("----- Menu gry -----");
         Console.WriteLine("1. Rozpocznij nową grę");
         Console.WriteLine("2. Wyjdź z gry");

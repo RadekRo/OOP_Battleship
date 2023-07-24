@@ -12,7 +12,7 @@ namespace OOP_Battleship
 
         private Display display = new Display();
         private Input input = new Input();
-        private int userChoice;
+        private int userInput;
         public bool gameActive = true;
 
         public Battleship()
@@ -24,9 +24,9 @@ namespace OOP_Battleship
             while (gameActive)
             {
                 DisplayMainMenu();
-                if (userChoice == 0) 
+                if (userInput == 2) 
                 {
-                    gameActive = false;
+                    ExitGame();
                 }
             }
         } 
@@ -34,7 +34,9 @@ namespace OOP_Battleship
         private void DisplayMainMenu()
         {
             display.PrintMenu();
-            userChoice = input.GetDigitInput();
+            Console.Write("Enter your choice: ");
+            userInput = input.GetDigitInput();
+            
         }
 
         private void StartGame()
@@ -49,7 +51,9 @@ namespace OOP_Battleship
 
         public void ExitGame()
         {
-
+            Console.WriteLine("You have decided to exit the game...");
+            Console.WriteLine("Thank you for playing Battleship!");
+            gameActive = false;
         }
     }
 }
