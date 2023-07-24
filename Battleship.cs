@@ -56,7 +56,7 @@ namespace OOP_Battleship
             userInput = input.GetDigitInput();
         }
 
-        public void ExitGame()
+        private void ExitGame()
         {
             display.EndGame();
             gameActive = false;

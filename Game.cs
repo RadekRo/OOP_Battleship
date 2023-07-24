@@ -8,6 +8,9 @@ namespace OOP_Battleship
 {
     internal class Game
     {
+        private Board playerOneBoard = new Board();
+        private Board playerTwoBoard = new Board();
+
         public Game() 
         {
             
@@ -19,6 +22,7 @@ namespace OOP_Battleship
             {
                 Console.Clear();
                 Console.WriteLine("Enter coordinates (or type 'exit' to quit): ");
+                Console.WriteLine(playerOneBoard);
                 var input = Console.ReadLine();
                 if (input == "exit")
                 {
