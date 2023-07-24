@@ -17,13 +17,9 @@
 
         }
 
-        public override string Shoot(Player oponent, (int x, int y) shootCoordinates, Board board)
+        public override string Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
-            if (shootCoordinates == (0, 0))
-                do
-                {
-                    shootCoordinates = GetShootCoordinates();
-                } while (!AreCoordinatsGood(shootCoordinates, board));
+
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
@@ -40,7 +36,6 @@
                 }
             }
             return "Miss!";
-
 
         }
     }
