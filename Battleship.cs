@@ -13,30 +13,36 @@ namespace OOP_Battleship
         private Display display = new Display();
         private Input input = new Input();
         private int userInput;
-        public bool gameActive = true;
+        internal static bool gameActive = true;
 
         public Battleship()
         {
-            Run();
+            Start();
         }
-        private void Run()
+        private void Start()
         {
             while (gameActive)
             {
-                if (userInput == 2)
+                if (userInput == 1)
+                {
+                    StartGame(); 
+                }
+                
+                else if (userInput == 2)
                 {
                     DisplayHighScore();
                 }
 
                 else if (userInput == 3) 
                 {
-                    ExitGame();
+                    break;
                 }
                 else
                 {
                     DisplayMainMenu();
                 }
             }
+            ExitGame();
         } 
 
         private void DisplayMainMenu()
@@ -49,7 +55,8 @@ namespace OOP_Battleship
 
         private void StartGame()
         {
-
+            Game game = new Game();
+            game.Run();
         }
 
         private void DisplayHighScore()
