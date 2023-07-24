@@ -13,6 +13,7 @@ namespace OOP_Battleship
         private Display display = new Display();
         private Input input = new Input();
         private int digitInput;
+        public bool gameActive = true;
 
         public Battleship()
         {
@@ -21,7 +22,15 @@ namespace OOP_Battleship
         }
         public void Run()
         {
-
+            while (gameActive)
+            {
+                digitInput = input.GetDigitInput();
+                Console.WriteLine(digitInput);
+                if (digitInput == 0) 
+                {
+                    gameActive = false;
+                }
+            }
         } 
 
         public void DisplayMainMenu()
