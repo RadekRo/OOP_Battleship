@@ -11,6 +11,7 @@ namespace OOP_Battleship
     {
         private Display displayManager = new Display();
         private Input inputManager = new Input();
+        private Game game = new Game();
         private int userChoice;
         internal static bool gameActive = true;
 
@@ -46,7 +47,6 @@ namespace OOP_Battleship
 
         private void StartGame()
         {
-            Game game = new Game();
             game.Run();
         }
 
