@@ -28,7 +28,7 @@ namespace OOP_Battleship
                 }
                 else if (userInput == 3)
                 {
-                    break;
+                    gameActive = false;
                 }
                 else
                 {
@@ -59,7 +59,6 @@ namespace OOP_Battleship
         private void ExitGame()
         {
             display.EndGame();
-            gameActive = false;
         }
     }
 }
