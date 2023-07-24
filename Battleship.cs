@@ -23,10 +23,18 @@ namespace OOP_Battleship
         {
             while (gameActive)
             {
-                DisplayMainMenu();
-                if (userInput == 2) 
+                if (userInput == 2)
+                {
+                    DisplayHighScore();
+                }
+
+                else if (userInput == 3) 
                 {
                     ExitGame();
+                }
+                else
+                {
+                    DisplayMainMenu();
                 }
             }
         } 
@@ -46,11 +54,19 @@ namespace OOP_Battleship
 
         private void DisplayHighScore()
         {
-
+            Console.Clear();
+            Console.WriteLine("------- High Score -------");
+            Console.WriteLine("1. Henry 200 pts");
+            Console.WriteLine("2. George 200 pts");
+            Console.WriteLine("3. Mary 200 pts");
+            Console.WriteLine("--------------------------");
+            Console.WriteLine("Press '0' to return to Main Menu...");
+            userInput = input.GetDigitInput();
         }
 
         public void ExitGame()
         {
+            Console.Clear();
             Console.WriteLine("You have decided to exit the game...");
             Console.WriteLine("Thank you for playing Battleship!");
             gameActive = false;

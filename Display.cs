@@ -5,9 +5,10 @@ public class Display
     public void PrintMenu()
     {
         Console.Clear();
-        Console.WriteLine("----- Menu gry -----");
-        Console.WriteLine("1. Rozpocznij nową grę");
-        Console.WriteLine("2. Wyjdź z gry");
+        Console.WriteLine("----- Game menu -----");
+        Console.WriteLine("1. Start a New Game");
+        Console.WriteLine("2. Display Highscores");
+        Console.WriteLine("3. Exit");
         Console.WriteLine("---------------------");
     }
 
