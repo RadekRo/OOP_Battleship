@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_Battleship
+﻿namespace OOP_Battleship
 {
     internal class ComputerPlayerNormal : ComputerPlayerEasy
     {
-        public List<Square> SquersToExclude { get; set; }
+        public HashSet<Square> SquersToExclude { get; set; }
+
 
         public override bool AreCoordinatsGood((int x, int y) coordinates, Board board)
         {
@@ -24,6 +19,7 @@ namespace OOP_Battleship
                 {
                     (int x, int y) = square.Position;
                     HashSet<(int, int)> positionsToCheck = new HashSet<(int, int)>();
+
                     if (x - 1 >= 0)
                     {
                         positionsToCheck.Add((x - 1, y));
@@ -70,4 +66,6 @@ namespace OOP_Battleship
                 }
             }
         }
+
     }
+}
