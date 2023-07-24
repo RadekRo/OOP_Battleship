@@ -10,6 +10,7 @@ public class Display
         Console.WriteLine("2. Display Highscores");
         Console.WriteLine("3. Exit");
         Console.WriteLine("---------------------");
+        Console.WriteLine("Enter your choice: ");
     }
 
     public void PrintBoard(char[,] board)

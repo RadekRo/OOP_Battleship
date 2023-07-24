@@ -48,7 +48,6 @@ namespace OOP_Battleship
         private void DisplayMainMenu()
         {
             display.PrintMenu();
-            Console.Write("Enter your choice: ");
             userInput = input.GetDigitInput();
             
         }
