@@ -9,24 +9,24 @@ namespace OOP_Battleship
 {
     internal class Battleship
     {
-        private Display display = new Display();
-        private Input input = new Input();
-        private int userInput;
+        private Display displayManager = new Display();
+        private Input inputManager = new Input();
+        private int userChoice;
         internal static bool gameActive = true;
 
         public Battleship()
         {
             while (gameActive)
             {
-                if (userInput == 1)
+                if (userChoice == 1)
                 {
                     StartGame();
                 }
-                else if (userInput == 2)
+                else if (userChoice == 2)
                 {
                     DisplayHighScore();
                 }
-                else if (userInput == 3)
+                else if (userChoice == 3)
                 {
                     gameActive = false;
                 }
@@ -40,8 +40,8 @@ namespace OOP_Battleship
 
         private void DisplayMainMenu()
         {
-            display.PrintMenu();
-            userInput = input.GetDigitInput();   
+            displayManager.PrintMenu();
+            userChoice = inputManager.GetDigitInput();   
         }
 
         private void StartGame()
@@ -53,12 +53,12 @@ namespace OOP_Battleship
         private void DisplayHighScore()
         {
             display.HighScore();
-            userInput = input.GetDigitInput();
+            userChoice = inputManager.GetDigitInput();
         }
 
         private void ExitGame()
         {
-            display.EndGame();
+            displayManager.EndGame();
         }
     }
 }
