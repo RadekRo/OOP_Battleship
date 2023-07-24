@@ -23,7 +23,6 @@ namespace OOP_Battleship
                 if (input == "exit")
                 {
                     Battleship.gameActive = false;
-                    break;
                 }
 
             }

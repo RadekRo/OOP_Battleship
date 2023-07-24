@@ -16,23 +16,17 @@ namespace OOP_Battleship
 
         public Battleship()
         {
-            Start();
-        }
-        private void Start()
-        {
             while (gameActive)
             {
                 if (userInput == 1)
                 {
-                    StartGame(); 
+                    StartGame();
                 }
-                
                 else if (userInput == 2)
                 {
                     DisplayHighScore();
                 }
-
-                else if (userInput == 3) 
+                else if (userInput == 3)
                 {
                     break;
                 }
@@ -42,7 +36,7 @@ namespace OOP_Battleship
                 }
             }
             ExitGame();
-        } 
+        }
 
         private void DisplayMainMenu()
         {
