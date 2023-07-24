@@ -12,40 +12,37 @@ namespace OOP_Battleship
 
         private Display display = new Display();
         private Input input = new Input();
-        private int digitInput;
+        private int userChoice;
         public bool gameActive = true;
 
         public Battleship()
         {
-            digitInput = input.GetDigitInput();
-            Console.WriteLine(digitInput);
-            display.PrintMenu();
             Run();
         }
-        public void Run()
+        private void Run()
         {
             while (gameActive)
             {
-                digitInput = input.GetDigitInput();
-                Console.WriteLine(digitInput);
-                if (digitInput == 0) 
+                DisplayMainMenu();
+                if (userChoice == 0) 
                 {
                     gameActive = false;
                 }
             }
         } 
 
-        public void DisplayMainMenu()
+        private void DisplayMainMenu()
+        {
+            display.PrintMenu();
+            userChoice = input.GetDigitInput();
+        }
+
+        private void StartGame()
         {
 
         }
 
-        public void StartGame()
-        {
-
-        }
-
-        public void DisplayHighScore()
+        private void DisplayHighScore()
         {
 
         }
