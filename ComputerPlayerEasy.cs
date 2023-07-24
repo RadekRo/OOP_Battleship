@@ -38,5 +38,16 @@
             return "Miss!";
 
         }
+        public void AIPlayerMechanic(Board board, Player oponent)
+        {
+            (int x, int y) shootPosition = GetShootCoordinates();
+            while (!AreCoordinatsGood(shootPosition, board))
+            {
+                shootPosition = GetShootCoordinates();
+            }
+            string result = Shoot(oponent, shootPosition);
+            Console.WriteLine(result);
+        }
+
     }
 }
