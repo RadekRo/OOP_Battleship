@@ -61,6 +61,13 @@ public class Display
         Console.WriteLine("--------------------------");
         Console.WriteLine("Press '0' to return to Main Menu...");
     }
+
+    public void EndGame()
+    {
+        Console.Clear();
+        Console.WriteLine("You have decided to exit the game...");
+        Console.WriteLine("Thank you for playing Battleship!");
+    }
 }
 
 public class Game

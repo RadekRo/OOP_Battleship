@@ -9,7 +9,6 @@ namespace OOP_Battleship
 {
     internal class Battleship
     {
-
         private Display display = new Display();
         private Input input = new Input();
         private int userInput;
@@ -48,8 +47,7 @@ namespace OOP_Battleship
         private void DisplayMainMenu()
         {
             display.PrintMenu();
-            userInput = input.GetDigitInput();
-            
+            userInput = input.GetDigitInput();   
         }
 
         private void StartGame()
@@ -66,9 +64,7 @@ namespace OOP_Battleship
 
         public void ExitGame()
         {
-            Console.Clear();
-            Console.WriteLine("You have decided to exit the game...");
-            Console.WriteLine("Thank you for playing Battleship!");
+            display.EndGame();
             gameActive = false;
         }
     }
