@@ -52,7 +52,7 @@ namespace OOP_Battleship
 
         private void DisplayHighScore()
         {
-            display.HighScore();
+            displayManager.HighScore();
             userChoice = inputManager.GetDigitInput();
         }
 
