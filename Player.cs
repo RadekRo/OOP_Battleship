@@ -37,7 +37,8 @@
         protected string CheckIfHit((int x, int y) shootCoordinates, Ship ship)
         {
 
-            for (int i = 0; i < ship.elements.Count; i++)
+
+            for (int i = 0; i < (int)ship.ShipType; i++)
             {
                 Square squer = ship.elements[i];
                 if (shootCoordinates == squer.Position && squer.SquerStatus == "ship")
@@ -65,6 +66,7 @@
                 Square square = ship.elements[i];
                 square.SquerStatus = "sink";
             }
+            ship.ShipStatus = "sink";
         }
 
         public virtual string Shoot(Player oponent, (int x, int y) shootCoordinates)
@@ -93,7 +95,7 @@
             int fleetSize = this.Fleet.Count;
             foreach (Ship ship in this.Fleet)
             {
-                if (ship.elements.All(n => n.SquerStatus == "sink"))
+                if (ship.ShipStatus == "sink")
                 {
                     fleetSize--;
                 }
