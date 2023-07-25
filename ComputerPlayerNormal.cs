@@ -15,12 +15,14 @@ namespace OOP_Battleship
 
         public void ExcludeSquers(Board board)
         {
+
+            HashSet<(int, int)> positionsToCheck = new HashSet<(int, int)>();
             foreach (Square square in board.ocean)
             {
                 if (square.SquerStatus == "sink")
                 {
                     (int x, int y) = square.Position;
-                    HashSet<(int, int)> positionsToCheck = new HashSet<(int, int)>();
+
 
                     if (x - 1 >= 0)
                     {
@@ -54,19 +56,19 @@ namespace OOP_Battleship
 
                         }
 
-                    }
-                    foreach (var position in positionsToCheck)
-                    {
-                        if (board.ocean.Find(square => square.Position == position && !SquersToExclude.Contains(square) && square.SquerStatus == "empty"))
-                        {
-                            SquersToExclude.Add(square);
-                        }
+
 
                     }
-                    positionsToCheck.Clear();
                 }
+
+
+            }
+            foreach ((int, int) postition in positionsToCheck)
+
+            {
+
+                Square match = Array.Find(board.ocean, s => s.Position == postition);
+
             }
         }
-
     }
-}
