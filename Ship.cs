@@ -10,6 +10,7 @@ namespace OOP_Battleship
     {
         public List<Square> elements;
         public ShipTypes ShipType { get; init; }
+
         public int ShipID { get; init; }
 
         public string ShipStatus { get; set; }

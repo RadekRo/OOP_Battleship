@@ -38,7 +38,8 @@
         {
 
 
-            for (int i = 0; i < (int)ship.ShipType; i++)
+
+            for (int i = 0; i < (int)s; i++)
             {
                 Square squer = ship.elements[i];
                 if (shootCoordinates == squer.Position && squer.SquerStatus == "ship")
