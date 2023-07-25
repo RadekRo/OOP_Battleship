@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace OOP_Battleship
 {
-    internal class Square
+    public class Square
     {
         public (int x, int y) Position;
-        public string SquerStatus;
+        public SquareStatus SquerStatus;
 
-        public Square((int x, int y) position, string status)
+        public Square((int x, int y) position, SquareStatus status)
         {
             this.Position = position;
             this.SquerStatus = status;
@@ -19,11 +19,11 @@ namespace OOP_Battleship
 
         public string GetCharacter(SquareStatus status)
         {
-            string result = null;
+            string result = "";
             switch ((int)status)
             {
                 case 0:
-                    result = "\u224B";
+                    result = "~";
                     break;
                 case 1:
                     result = "\u25CC";
