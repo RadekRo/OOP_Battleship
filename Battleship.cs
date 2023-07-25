@@ -9,33 +9,56 @@ namespace OOP_Battleship
 {
     internal class Battleship
     {
+        private Display displayManager = new Display();
+        private Input inputManager = new Input();
+        private Game gameManager = new Game();
+        private int userChoice;
+        internal static bool gameActive = true;
 
-        //Display display = new Display();
-        //Input input = new Input();
-
-        public void Run()
+        public Battleship()
         {
-
-        } 
-
-        public void DisplayMainMenu()
-        {
-
+            while (gameActive)
+            {
+                if (userChoice == 1)
+                {
+                    StartGame();
+                }
+                else if (userChoice == 2)
+                {
+                    DisplayHighScore();
+                }
+                else if (userChoice == 3)
+                {
+                    gameActive = false;
+                }
+                else
+                {
+                    DisplayMainMenu();
+                }
+            }
+            ExitGame();
         }
 
-        public void StartGame()
+        private void DisplayMainMenu()
         {
-
+            displayManager.PrintMenu();
+            userChoice = inputManager.GetDigitInput();   
         }
 
-        public void DisplayHighScore()
+        private void StartGame()
         {
-
+            gameManager.Run();
         }
 
-        public void ExitGame()
+        private void DisplayHighScore()
         {
+            displayManager.HighScore();
+            userChoice = inputManager.GetDigitInput();
+        }
 
+        private void ExitGame()
+        {
+            displayManager.EndGame();
         }
     }
 }
