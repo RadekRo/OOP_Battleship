@@ -1,6 +1,4 @@
-﻿using System;
-
-public class Display
+﻿public class Display
 {
     public void PrintMenu()
     {
