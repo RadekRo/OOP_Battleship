@@ -36,6 +36,7 @@ namespace OOP_Battleship
                     break;
                 case 4:
                     result = "\u2737";
+
                     break;
             }
             return result;

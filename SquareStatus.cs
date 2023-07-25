@@ -19,6 +19,7 @@ namespace OOP_Battleship
         hit,
         [Description("\u2737")]
         sink
+
     }
 
 }
