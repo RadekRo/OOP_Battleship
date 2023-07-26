@@ -64,7 +64,7 @@ namespace OOP_Battleship
             string numberPart = Regex.Match(validUserInput, @"[1-9]|10").Value;
             int x = Convert.ToInt32(Encoding.ASCII.GetBytes(new[] { letterPart[0] })[0]) - 65;
             int y = Convert.ToInt32(numberPart) - 1;
-            return (x, y);
+            return (y, x);
 
         }
     }

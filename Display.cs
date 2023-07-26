@@ -1,4 +1,6 @@
-﻿public class Display
+﻿using OOP_Battleship;
+
+public class Display
 {
     public void PrintMenu()
     {
@@ -11,21 +13,26 @@
         Console.Write("Enter your choice: ");
     }
 
-    public void PrintBoard(char[,] board)
-    {
-        int rows = board.GetLength(0);
-        int cols = board.GetLength(1);
+    //public void PrintBoard(char[,] board)
+    //{
+    //    int rows = board.GetLength(0);
+    //    int cols = board.GetLength(1);
 
-        Console.WriteLine("----- Plansza -----");
-        for (int row = 0; row < rows; row++)
-        {
-            for (int col = 0; col < cols; col++)
-            {
-                Console.Write(board[row, col] + " ");
-            }
-            Console.WriteLine();
-        }
-        Console.WriteLine("--------------------");
+    //    Console.WriteLine("----- Plansza -----");
+    //    for (int row = 0; row < rows; row++)
+    //    {
+    //        for (int col = 0; col < cols; col++)
+    //        {
+    //            Console.Write(board[row, col] + " ");
+    //        }
+    //        Console.WriteLine();
+    //    }
+    //    Console.WriteLine("--------------------");
+    //}
+    
+    public void PrintBoard(Board board)
+    {
+        Console.WriteLine(board);
     }
 
     public void PrintGameplay()
@@ -35,11 +42,23 @@
         Console.WriteLine("---------------------");
     }
 
+    public void AskForUserCoordinates()
+    {
+        Console.Write("Enter starting ship coordinates (for ex. A1): ");
+    }
+
     public void InvalidChoice()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("");
         Console.WriteLine("WRONG ENTRY! Use only avaliable menu option numbers!");
+        Console.ResetColor();
+    }
+
+    public void InvalidCoordinate()
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("WRONG COORDINATES!! Try again");
         Console.ResetColor();
     }
 
@@ -74,40 +93,4 @@
         Console.WriteLine("You have decided to exit the game...");
         Console.WriteLine("Thank you for playing Battleship!");
     }
-}
-
-public class Game
-{
-    // Inne składowe klasy Game
-
-    //static void Main(string[] args)
-    //{
-    //    Display display = new Display();
-    //    display.PrintMenu();
-
-    //    // Tutaj można dodać logikę obsługi wyboru w menu gry
-    //    // np. wywołanie funkcji odpowiedzialnej za rozpoczęcie nowej gry
-
-    //    // Przykład użycia metody PrintBoard:
-    //    char[,] playerBoard = new char[,]
-    //    {
-    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
-    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
-    //        { '-', '-', '-', 'S', 'S', 'S', '-', '-' },
-    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
-    //        { '-', 'C', 'C', 'C', 'C', '-', '-', '-' },
-    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
-    //        { '-', '-', '-', '-', '-', '-', '-', '-' },
-    //        { '-', '-', '-', '-', '-', '-', '-', '-' }
-    //    };
-
-    //    display.PrintBoard(playerBoard);
-
-    //    // Przykład użycia metody PrintGameplay:
-    //    display.PrintGameplay();
-
-    //    // Przykład użycia metody PrintGameOver:
-    //    bool isPlayerWin = true;
-    //    display.PrintGameOver(isPlayerWin);
-    //}
 }

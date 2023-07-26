@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace OOP_Battleship
 {
-    /*
+    
     public enum ShipType
     {
-        Carrier,
-        Battleship,
-        Cruiser,
-        Submarine,
-        Destroyer
+        Carrier = 1,
+        Battleship = 2,
+        Cruiser = 3,
+        Submarine = 4,
+        Destroyer = 5
     }
-
+    /*
     public enum Orientation
     {
         Horizontal,

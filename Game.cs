@@ -8,30 +8,26 @@ namespace OOP_Battleship
 {
     internal class Game
     {
-        private Board playerOneBoard = new Board();
-        private Board playerTwoBoard = new Board();
+        private BoardFactory boardFactory;
+        private Board playerOneBoard;
+        private Board playerTwoBoard;
+        private Player playerOne;
+        private Player playerTwo;
 
         public Game() 
         {
-            
+            boardFactory = new BoardFactory();
+            playerOne = new Player();
+            playerTwo = new Player();
+            playerOneBoard = new Board();
+            playerTwoBoard = new Board();   
         }
 
         public void Run()
         {
             while (Battleship.gameActive)
-            {   
-                
-                Console.Clear();
-                Console.WriteLine("Player One - place your ships!");
-                Console.WriteLine(playerOneBoard);
-                Console.Write("Enter coordinates (or type 'exit' to quit): ");
-                var input = Console.ReadLine();
-  
-                if (input == "exit")
-                {
-                    Battleship.gameActive = false;
-                }
-
+            {
+                boardFactory.ManualPlacement(playerOneBoard);
             }
         }
 
