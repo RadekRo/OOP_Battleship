@@ -27,7 +27,7 @@
             return (x, y);
         }
 
-        public string CPUMechanic(Board board, Player oponent)
+        public virtual string CPUMechanic(Board board, Player oponent)
         {
             (int x, int y) coordinates = PrepereShootCoordinates(board);
             return Shoot(oponent, coordinates);
