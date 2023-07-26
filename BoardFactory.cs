@@ -45,7 +45,6 @@ namespace OOP_Battleship
 
                 }
                 //board.ocean[0, i].SquerStatus = SquareStatus.ship;
-                //               DigitShapes; 
             }
         }
     }
