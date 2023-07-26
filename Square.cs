@@ -17,13 +17,13 @@ namespace OOP_Battleship
             this.SquerStatus = status;
         }
 
-        public string GetCharacter(SquareStatus status)
+        public string GetCharacter()
         {
             string result = "";
-            switch ((int)status)
+            switch ((int)this.SquerStatus)
             {
                 case 0:
-                    result = "~";
+                    result = "\u224B";
                     break;
                 case 1:
                     result = "\u25CC";

@@ -73,7 +73,7 @@ namespace OOP_Battleship
             for (int j = 0; j < cols; j++)
             {
                 Square s = ocean[row, j];
-                yield return s.GetCharacter(s.SquerStatus).ToString();
+                yield return s.GetCharacter().ToString();
             }
         }
     }
