@@ -15,9 +15,9 @@ namespace OOP_Battleship
         public void ManualPlacement(Board board)
         {
 
-            for (int i = 1; i < Enum.GetNames(typeof(ShipType)).Length; i++)
+            for (int i = 1; i < Enum.GetNames(typeof(ShipTypes)).Length; i++)
             {
-                ShipType shipType = (ShipType)i;
+                ShipTypes shipType = (ShipTypes)i;
                 int shipSize = (int)shipType;
                 bool validCoordinate = false;
 
