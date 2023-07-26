@@ -19,11 +19,14 @@ namespace OOP_Battleship
         public void Run()
         {
             while (Battleship.gameActive)
-            {
+            {   
+                
                 Console.Clear();
-                Console.WriteLine("Enter coordinates (or type 'exit' to quit): ");
+                Console.WriteLine("Player One - place your ships!");
                 Console.WriteLine(playerOneBoard);
+                Console.Write("Enter coordinates (or type 'exit' to quit): ");
                 var input = Console.ReadLine();
+  
                 if (input == "exit")
                 {
                     Battleship.gameActive = false;

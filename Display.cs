@@ -35,6 +35,11 @@
         Console.WriteLine("---------------------");
     }
 
+    public void InvalidChoice()
+    {
+        Console.WriteLine("Wrong entry! Use only avaliable menu option numbers!");
+    }
+
     public void PrintGameOver(bool isPlayerWin)
     {
         Console.WriteLine("----- Koniec gry -----");

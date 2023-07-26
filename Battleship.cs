@@ -19,21 +19,23 @@ namespace OOP_Battleship
         {
             while (gameActive)
             {
-                if (userChoice == 1)
+                DisplayMainMenu();
+                
+                switch (userChoice)
                 {
-                    StartGame();
-                }
-                else if (userChoice == 2)
-                {
-                    DisplayHighScore();
-                }
-                else if (userChoice == 3)
-                {
-                    gameActive = false;
-                }
-                else
-                {
-                    DisplayMainMenu();
+                    case 1:
+                        StartGame();
+                        break;
+                    case 2:
+                        DisplayHighScore();
+                        break;
+                    case 3:
+                        gameActive = false;
+                        break;
+                    default:
+                        displayManager.InvalidChoice();
+                        Console.WriteLine("Wring chocie");
+                        break;
                 }
             }
             ExitGame();

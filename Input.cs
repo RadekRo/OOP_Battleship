@@ -14,7 +14,6 @@ namespace OOP_Battleship
         public int GetDigitInput()
         {
             var userInput = Console.ReadKey();
-            Console.WriteLine();
             if (char.IsDigit(userInput.KeyChar))
             {
                 return int.Parse(userInput.KeyChar.ToString());
