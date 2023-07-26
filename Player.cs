@@ -51,24 +51,6 @@
             return "Miss!";
         }
 
-        protected bool CheckIfShipSink(string shootResult, Ship ship)
-        {
-
-            List<Square> list = ship.Elements;
-            return list.All(n => n.SquerStatus == SquareStatus.hit);
-
-        }
-
-        protected void ShipSink(Ship ship)
-        {
-            for (int i = 0; i < ship.Elements.Count; i++)
-            {
-                Square square = ship.Elements[i];
-                square.SquerStatus = SquareStatus.sink;
-                ship.ChangeShipStatus(ShipStatus.destroyed);
-            }
-
-        }
 
         public virtual string Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
@@ -78,9 +60,9 @@
                 string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
                 if (shootResult == "Hit!")
                 {
-                    if (CheckIfShipSink(shootResult, oponentFleet[i]))
+                    if (oponentFleet[i].CheckIfShipSink())
                     {
-                        ShipSink(oponentFleet[i]);
+                        oponentFleet[i].ShipSink();
                         oponent.CheckIfAllSunk();
                         return "Ship sunk!";
                     }

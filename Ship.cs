@@ -22,5 +22,22 @@ namespace OOP_Battleship
         {
             this.Status = status;
         }
+
+        public bool CheckIfShipSink()
+        {
+            List<Square> list = this.Elements;
+            return list.All(n => n.SquerStatus == SquareStatus.hit);
+        }
+
+        public void ShipSink()
+        {
+            for (int i = 0; i < this.Elements.Count; i++)
+            {
+                Square square = this.Elements[i];
+                square.SquerStatus = SquareStatus.sink;
+                this.ChangeShipStatus(ShipStatus.destroyed);
+            }
+
+        }
     }
 }
