@@ -8,7 +8,7 @@ namespace OOP_Battleship
 {
     internal class ComputerPlayerNormal : ComputerPlayerEasy
     {
-        public List<Square> SquersToExclude;
+        public HashSet<Square> SquersToExclude;
         public HashSet<(int, int)> PositionToCheck;
 
         public override bool AreCoordinatsGood((int x, int y) coordinates, Board board)
@@ -83,6 +83,7 @@ namespace OOP_Battleship
             (int x, int y) shootCoordinats = GetShootCoordinates();
             string message = Shoot(oponent, shootCoordinats);
             FindSquaresToExclude(board);
+            PositionToCheck.Clear();
             return message;
         }
 
