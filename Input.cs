@@ -61,7 +61,7 @@ namespace OOP_Battleship
         {
             validUserInput = validUserInput.ToUpper();
             string letterPart = Regex.Match(validUserInput, @"[A-J]+").Value;
-            string numberPart = Regex.Match(validUserInput, @"[1-9]|10").Value;
+            string numberPart = Regex.Match(validUserInput, @"10|[1-9]").Value;
             int x = Convert.ToInt32(Encoding.ASCII.GetBytes(new[] { letterPart[0] })[0]) - 65;
             int y = Convert.ToInt32(numberPart) - 1;
             return (y, x);
