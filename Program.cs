@@ -7,6 +7,7 @@ namespace OOP_Battleship
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+            
             Battleship battleship = new Battleship();
 
 
