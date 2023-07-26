@@ -37,12 +37,13 @@
         protected string CheckIfHit((int x, int y) shootCoordinates, Ship ship)
         {
 
-            for (int i = 0; i < (int)ship.ShipType; i++)
+            for (int i = 0; i < (int)ship.Type; i++)
             {
-                Square squer = ship.elements[i];
+                Square squer = ship.Elements[i];
                 if (shootCoordinates == squer.Position && squer.SquerStatus == SquareStatus.ship)
                 {
                     squer.SquerStatus = SquareStatus.hit;
+                    ship.ChangeShipStatus(ShipStatus.damaged);
                     return "Hit!";
 
                 }
@@ -53,17 +54,18 @@
         protected bool CheckIfShipSink(string shootResult, Ship ship)
         {
 
-            List<Square> list = ship.elements;
+            List<Square> list = ship.Elements;
             return list.All(n => n.SquerStatus == SquareStatus.hit);
 
         }
 
         protected void ShipSink(Ship ship)
         {
-            for (int i = 0; i < ship.elements.Count; i++)
+            for (int i = 0; i < ship.Elements.Count; i++)
             {
-                Square square = ship.elements[i];
+                Square square = ship.Elements[i];
                 square.SquerStatus = SquareStatus.sink;
+                ship.ChangeShipStatus(ShipStatus.destroyed);
             }
 
         }
@@ -94,7 +96,7 @@
             int fleetSize = this.Fleet.Count;
             foreach (Ship ship in this.Fleet)
             {
-                if (ship.ShipStatus == "sink")
+                if (ship.Status == ShipStatus.destroyed)
                 {
                     fleetSize--;
                 }
