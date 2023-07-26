@@ -14,7 +14,7 @@ namespace OOP_Battleship
 
         public void ManualPlacement(Board board)
         {
-           
+
             for (int i = 1; i < Enum.GetNames(typeof(ShipType)).Length; i++)
             {
                 ShipType shipType = (ShipType)i;
@@ -29,7 +29,7 @@ namespace OOP_Battleship
                     displayManager.AskForUserCoordinates();
                     string shipCoordinates = inputManager.GetStringInput();
 
-                    if (!inputManager.ValidateStringInput(shipCoordinates) || 
+                    if (!inputManager.ValidateStringInput(shipCoordinates) ||
                         !inputManager.ValidateCoordinates(shipCoordinates))
                     {
                         displayManager.InvalidCoordinate();
@@ -42,10 +42,10 @@ namespace OOP_Battleship
                         board.ocean[x, y].SquerStatus = SquareStatus.ship;
                         validCoordinate = true;
                     }
-                   
+
                 }
                 //board.ocean[0, i].SquerStatus = SquareStatus.ship;
-DigitShapes 
+                //               DigitShapes; 
             }
         }
     }
