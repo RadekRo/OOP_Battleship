@@ -37,7 +37,10 @@
 
     public void InvalidChoice()
     {
-        Console.WriteLine("Wrong entry! Use only avaliable menu option numbers!");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("");
+        Console.WriteLine("WRONG ENTRY! Use only avaliable menu option numbers!");
+        Console.ResetColor();
     }
 
     public void PrintGameOver(bool isPlayerWin)

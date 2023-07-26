@@ -34,7 +34,7 @@ namespace OOP_Battleship
                         break;
                     default:
                         displayManager.InvalidChoice();
-                        Console.WriteLine("Wring chocie");
+                        Thread.Sleep(1000);
                         break;
                 }
             }
