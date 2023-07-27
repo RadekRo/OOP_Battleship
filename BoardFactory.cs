@@ -24,7 +24,9 @@ namespace OOP_Battleship
                 while (!validCoordinate)
                 {
                     Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"Player {player}. Deploy your fleet!");
+                    Console.ResetColor();
                     Console.WriteLine("------------------------------");
                     displayManager.PrintBoard(board);
                     Console.WriteLine($"Placing {shipType} (size {shipSize})");

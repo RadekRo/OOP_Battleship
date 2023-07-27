@@ -25,10 +25,14 @@ namespace OOP_Battleship
 
         public void Run()
         {
+            boardFactory.ManualPlacement(playerOneBoard, "One");
+            boardFactory.ManualPlacement(playerTwoBoard, "Two");
             while (Battleship.gameActive)
             {
-                boardFactory.ManualPlacement(playerOneBoard, "One");
-                boardFactory.ManualPlacement(playerTwoBoard, "Two");
+                Console.Clear();
+                Console.WriteLine("And now, something completely different...");
+                Console.ReadLine();
+                Battleship.gameActive = false;
             }
         }
 
