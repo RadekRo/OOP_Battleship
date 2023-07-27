@@ -38,8 +38,6 @@ namespace OOP_Battleship
         }
         public override bool AreCoordinatsGood((int x, int y) coordinates, Board board)
         {
-            FindSquaresToExclude(board);
-            GetPositionToCheck(board);
             Square square = board.ocean[coordinates.x, coordinates.y];
             return square.SquerStatus == SquareStatus.empty && !SquersToExclude.Contains(coordinates);
         }
@@ -61,13 +59,14 @@ namespace OOP_Battleship
 
         public override string Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
+            LastShoot = shootCoordinates;
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
                 string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
                 if (shootResult == "Hit!")
                 {
-                    LastShoot = shootCoordinates;
+                    WasLastShootHit = true;
                     LastShootShip.Add(shootCoordinates);
                     if (oponentFleet[i].CheckIfShipSink())
                     {
@@ -78,10 +77,11 @@ namespace OOP_Battleship
                         PositionToCheck.Clear();
                         return "Ship sunk!";
                     }
-                    WasLastShootHit = true;
+
                     return "Ship hit!";
                 }
             }
+            WasLastShootHit = false;
             return "Miss!";
 
         }
