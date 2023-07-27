@@ -27,7 +27,8 @@ namespace OOP_Battleship
         {
             while (Battleship.gameActive)
             {
-                boardFactory.ManualPlacement(playerOneBoard);
+                boardFactory.ManualPlacement(playerOneBoard, "One");
+                boardFactory.ManualPlacement(playerTwoBoard, "Two");
             }
         }
 

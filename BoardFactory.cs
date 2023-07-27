@@ -12,7 +12,7 @@ namespace OOP_Battleship
         private Display displayManager = new Display();
         private Input inputManager = new Input();
 
-        public void ManualPlacement(Board board)
+        public void ManualPlacement(Board board, string player)
         {
 
             for (int i = 1; i < Enum.GetNames(typeof(ShipTypes)).Length; i++)
@@ -24,6 +24,8 @@ namespace OOP_Battleship
                 while (!validCoordinate)
                 {
                     Console.Clear();
+                    Console.WriteLine($"Player {player}. Deploy your fleet!");
+                    Console.WriteLine("------------------------------");
                     displayManager.PrintBoard(board);
                     Console.WriteLine($"Placing {shipType} (size {shipSize})");
                     displayManager.AskForUserCoordinates();
