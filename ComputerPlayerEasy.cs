@@ -13,7 +13,7 @@
         public virtual bool AreCoordinatsGood((int x, int y) coordinates, Board board)
         {
             Square squer = board.ocean[coordinates.x, coordinates.y];
-            return squer.SquerStatus == SquareStatus.empty;
+            return squer.SquerStatus == SquareStatus.Empty;
 
         }
 

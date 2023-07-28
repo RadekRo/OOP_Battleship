@@ -40,9 +40,9 @@
             for (int i = 0; i < (int)ship.Type; i++)
             {
                 Square squer = ship.Elements[i];
-                if (shootCoordinates == squer.Position && squer.SquerStatus == SquareStatus.ship)
+                if (shootCoordinates == squer.Position && squer.SquerStatus == SquareStatus.Ship)
                 {
-                    squer.SquerStatus = SquareStatus.hit;
+                    squer.SquerStatus = SquareStatus.Hit;
                     ship.ChangeShipStatus(ShipStatus.damaged);
                     return "Hit!";
 

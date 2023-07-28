@@ -39,7 +39,7 @@ namespace OOP_Battleship
         public override bool AreCoordinatsGood((int x, int y) coordinates, Board board)
         {
             Square square = board.ocean[coordinates.x, coordinates.y];
-            return square.SquerStatus == SquareStatus.empty && !SquersToExclude.Contains(coordinates);
+            return square.SquerStatus == SquareStatus.Empty && !SquersToExclude.Contains(coordinates);
         }
 
 
@@ -48,7 +48,7 @@ namespace OOP_Battleship
 
             foreach (Square s in board.ocean)
             {
-                if (s.SquerStatus == SquareStatus.sink)
+                if (s.SquerStatus == SquareStatus.Sink)
                 {
                     (int x, int y) position = s.Position;
                     SearchAroundPosition(board, SquersToExclude, position);
@@ -97,7 +97,7 @@ namespace OOP_Battleship
                 if (neighborX >= 0 && neighborX < 10 && neighborY >= 0 && neighborY < 10)
                 {
                     Square s = board.GetSquareAtPosition((neighborX, neighborY));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         list.Add((neighborX, neighborY));
                     }
@@ -112,7 +112,7 @@ namespace OOP_Battleship
                 if (firstHit.x - i > 0)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x - i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x - i, firstHit.y));
                     }
@@ -120,7 +120,7 @@ namespace OOP_Battleship
                 if (firstHit.x + i < 10)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x + i, firstHit.y));
                     }
@@ -136,7 +136,7 @@ namespace OOP_Battleship
                 if (firstHit.y - i > 0)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y - i));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x, firstHit.y - i));
                     }
@@ -144,7 +144,7 @@ namespace OOP_Battleship
                 if (firstHit.y + i < 10)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y + i));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x, firstHit.y + i));
                     }
@@ -159,7 +159,7 @@ namespace OOP_Battleship
                 for (int i = 1; i < 5; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x - i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x - i, firstHit.y));
                     }
@@ -171,7 +171,7 @@ namespace OOP_Battleship
                 for (int i = 1; i < 5; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x + i, firstHit.y));
                     }
@@ -186,7 +186,7 @@ namespace OOP_Battleship
                 for (int i = 1; i < 5; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y - i));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x, firstHit.y - i));
                     }
@@ -198,7 +198,7 @@ namespace OOP_Battleship
                 for (int i = 1; i < 5; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y + i));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x, firstHit.y + i));
                     }
