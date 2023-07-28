@@ -57,6 +57,12 @@ namespace OOP_Battleship
             string pattern = @"^([A-J]([1-9]|10)|([1-9]|10)[A-J])$";
             return Regex.IsMatch(userInput, pattern, RegexOptions.IgnoreCase);
         }
+
+        public bool ValidateShipOrientation(string userInput)
+        {
+            userInput = userInput.ToUpper();
+            return userInput == "H" || userInput == "V";
+        }
         public (int x, int y) TranslateCoordinates(string validUserInput)
         {
             validUserInput = validUserInput.ToUpper();

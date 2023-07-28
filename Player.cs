@@ -14,7 +14,7 @@
                 _name = value;
             }
         }
-        public List<Ship> Fleet { get; set; }
+        public List<Ship> Fleet = new List<Ship>();
         public bool IsAlive { get; private set; } = true;
 
         public int PlayerNumber { get; init; }
