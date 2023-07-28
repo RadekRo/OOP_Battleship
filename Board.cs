@@ -3,29 +3,7 @@ using System.Collections.Generic;
 
 namespace OOP_Battleship
 {
-    /*
-   public enum ShipType
-   {
-       Carrier = 1,
-       Battleship = 2,
-       Cruiser = 3,
-       Submarine = 4,
-       Destroyer = 5
-   }
 
-   public enum Orientation
-   {
-       Horizontal,
-       Vertical
-   }
-
-
-   public class Square
-   {
-       public bool IsOccupied { get; set; } 
-       public ShipType ShipType { get; set; } 
-   }
-   */
 
     public class Board
     {

@@ -14,17 +14,17 @@ namespace OOP_Battleship
 
 
         // ---------
-   
 
 
-       private bool CanPlaceShip(Board board, Ship ship,(int x, int y) coordinates)
+
+        private bool CanPlaceShip(Board board, Ship ship, (int x, int y) coordinates)
         {
 
             int size = ship.Elements.Count;
 
             if (ship.IsVertical)
             {
-               // if (y + size > BoardSize) return false
+                // if (y + size > BoardSize) return false
             }
 
             else
@@ -69,7 +69,7 @@ namespace OOP_Battleship
         {
             List<(int x, int y)> freeCoordinates = new List<(int x, int y)>();
 
-            
+
             for (int x = 0; x < board.BoardSize; x++)
             {
                 for (int y = 0; y < board.BoardSize; y++)
@@ -88,7 +88,7 @@ namespace OOP_Battleship
             {
                 int randomIndex = new Random().Next(0, freeCoordinates.Count);
                 var randomCoordinate = freeCoordinates[randomIndex];
-                freeCoordinates.RemoveAt(randomIndex); 
+                freeCoordinates.RemoveAt(randomIndex);
 
                 if (CanPlaceShip(board, ship, randomCoordinate))
                 {
@@ -131,6 +131,7 @@ namespace OOP_Battleship
                     {
                         (int x, int y) = inputManager.TranslateCoordinates(shipCoordinates);
                         board.ocean[x, y].SquerStatus = SquareStatus.Ship;
+                        List<Square> shipElements
                         validCoordinate = true;
                     }
 
