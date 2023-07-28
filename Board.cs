@@ -33,6 +33,8 @@ namespace OOP_Battleship
         private int cols;
         public Square[,] ocean;
 
+        public int BoardSize { get; internal set; }
+
         public Board(int rows = 10, int cols = 10)
         {
             this.rows = rows;
@@ -42,7 +44,7 @@ namespace OOP_Battleship
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    ocean[i, j] = new Square((i, j), SquareStatus.empty);
+                    ocean[i, j] = new Square((i, j), SquareStatus.Empty);
 
                 }
             }

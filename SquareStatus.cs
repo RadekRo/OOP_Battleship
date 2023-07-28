@@ -10,15 +10,15 @@ namespace OOP_Battleship
     public enum SquareStatus
     {
         [Description("\u224B")]
-        empty,
+        Empty,
         [Description("\u25CC")]
-        miss,
+        Miss,
         [Description("\u2388")]
-        ship,
+        Ship,
         [Description("\u2BCC")]
-        hit,
+        Hit,
         [Description("\u2737")]
-        sink
+        Sink
 
     }
 
