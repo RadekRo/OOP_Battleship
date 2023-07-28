@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_Battleship;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -104,35 +105,7 @@ namespace OOP_Battleship
                 }
             }
         }
-<<<<<<< HEAD
-        private void SearchHorizontalForShip((int x, int y) firstHit, (int x, int y) lastHit, Board board)
-        {
-            PositionToCheck.Clear();
-            for (int i = 1; i < 5; i++)
-            {
-                if (firstHit.x - i > 0)
-                {
-                    Square s = board.GetSquareAtPosition((firstHit.x - i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.Empty)
-                    {
-                        PositionToCheck.Add((firstHit.x - i, firstHit.y));
-                    }
-                }
-                if (firstHit.x + i < 10)
-                {
-                    Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.Empty)
-                    {
-                        PositionToCheck.Add((firstHit.x + i, firstHit.y));
-                    }
-                }
-            }
-        }
-
-        private void SearchVerticalForShip((int x, int y) firstHit, (int x, int y) lastHit, Board board)
-=======
         private void SearchHorizontalForShip((int x, int y) firstHit, Board board)
->>>>>>> 09758bac83748e47e509d0533418ed64832344ae
         {
             PositionToCheck.Clear();
             for (int i = 1; i < 5; i++)
@@ -206,6 +179,9 @@ namespace OOP_Battleship
                 }
             }
         }
+
+
+
         private void SearchVerticalAfterMiss((int x, int y) firstHit, Board board)
         {
             if (LastShoot.y > firstHit.y)
@@ -214,7 +190,7 @@ namespace OOP_Battleship
                 for (int i = 1; i < 5; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x - i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x - i, firstHit.y));
                     }
@@ -226,13 +202,18 @@ namespace OOP_Battleship
                 for (int i = 1; i < 5; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
-                    if (s.SquerStatus == SquareStatus.empty)
+                    if (s.SquerStatus == SquareStatus.Empty)
                     {
                         PositionToCheck.Add((firstHit.x - i, firstHit.y));
                     }
                 }
             }
+
+
         }
+
+
+
         public void GetPositionToCheck(Board board)
         {
             if (WasLastShootHit)
@@ -256,6 +237,7 @@ namespace OOP_Battleship
                     }
                 }
             }
+
             else if (LastShootShip.Count > 0)
             {
                 (int x, int y) firstHit = LastShootShip[0];
@@ -269,7 +251,6 @@ namespace OOP_Battleship
                     SearchVerticalAfterMiss(firstHit, board);
                 }
             }
-
         }
 
         public override string CPUMechanic(Board board, Player oponent)

@@ -8,10 +8,13 @@ namespace OOP_Battleship
 {
     enum ShipTypes
     {
-        Carrier = 1,
-        Cruiser,
+        Destroyer = 2,
         Battleship,
-        Submarine,
-        Destroyer
+        Submarine = 3,
+        Cruiser,
+        Carrier
+
+
+
     }
 }
