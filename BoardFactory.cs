@@ -99,12 +99,12 @@ namespace OOP_Battleship
 
             return placed;
         }
-        public void ManualPlacement(Board board, string player)
+        public void ManualPlacement(Board board, Player player)
         {
 
             foreach (ShipTypes shipType in Enum.GetValues(typeof(ShipTypes)))
             {
-               
+
                 int shipSize = (int)shipType;
                 bool validCoordinate = false;
 
@@ -112,7 +112,7 @@ namespace OOP_Battleship
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Player {player}. Deploy your fleet!");
+                    Console.WriteLine($"Player {player.Name}. Deploy your fleet!");
                     Console.ResetColor();
                     Console.WriteLine("------------------------------");
                     displayManager.PrintBoard(board);
@@ -201,10 +201,8 @@ namespace OOP_Battleship
 
                         Ship ship = new Ship(shipElements, shipType);
                         ship.IsVertical = isVertical;
+                        player.Fleet.Add(ship);
                         shipElements.Clear();
-
-
-
                         validCoordinate = true;
                     }
 

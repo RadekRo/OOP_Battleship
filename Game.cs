@@ -14,19 +14,21 @@ namespace OOP_Battleship
         private Player playerOne;
         private Player playerTwo;
 
-        public Game() 
+        public Game()
         {
             boardFactory = new BoardFactory();
             playerOne = new Player();
             playerTwo = new Player();
+            playerOne.Name = "One";
+            playerTwo.Name = "Two";
             playerOneBoard = new Board();
-            playerTwoBoard = new Board();   
+            playerTwoBoard = new Board();
         }
 
         public void Run()
         {
-            boardFactory.ManualPlacement(playerOneBoard, "One");
-            boardFactory.ManualPlacement(playerTwoBoard, "Two");
+            boardFactory.ManualPlacement(playerOneBoard, playerOne);
+            boardFactory.ManualPlacement(playerTwoBoard, playerTwo);
             while (Battleship.gameActive)
             {
                 Console.Clear();
