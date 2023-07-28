@@ -102,9 +102,9 @@ namespace OOP_Battleship
         public void ManualPlacement(Board board, string player)
         {
 
-            for (int i = 1; i < Enum.GetNames(typeof(ShipTypes)).Length; i++)
+            foreach (ShipTypes shipType in Enum.GetValues(typeof(ShipTypes)))
             {
-                ShipTypes shipType = (ShipTypes)i;
+               
                 int shipSize = (int)shipType;
                 bool validCoordinate = false;
 
@@ -131,7 +131,80 @@ namespace OOP_Battleship
                     {
                         (int x, int y) = inputManager.TranslateCoordinates(shipCoordinates);
                         board.ocean[x, y].SquerStatus = SquareStatus.Ship;
-                        List<Square> shipElements
+                        List<Square> shipElements = new List<Square>();
+                        shipElements.Add(board.ocean[x, y]);
+                        Console.WriteLine("Horizontal or Vertical [h/v]: ");
+                        string orientationInput = inputManager.GetStringInput().ToUpper();
+                        while (orientationInput != "H" && orientationInput != "V")
+                        {
+                            Console.WriteLine("Wrong Input");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            Console.WriteLine("Horizontal or Vertical [h/v]: ");
+                            orientationInput = inputManager.GetStringInput();
+                        }
+                        bool isVertical = true;
+                        int count = shipSize - 1;
+                        switch (orientationInput)
+                        {
+                            case "H":
+                                isVertical = false;
+                                if (y + shipSize - 1 < 10)
+                                {
+                                    while (count > 0)
+                                    {
+                                        board.ocean[x, y + count].SquerStatus = SquareStatus.Ship;
+                                        shipElements.Add(board.ocean[x, y + count]);
+                                        count--;
+
+                                    }
+                                }
+                                else
+                                {
+                                    while (count > 0)
+                                    {
+                                        board.ocean[x, y - count].SquerStatus = SquareStatus.Ship;
+                                        shipElements.Add(board.ocean[x, y - count]);
+                                        count--;
+
+                                    }
+
+                                }
+
+                                break;
+                            case "V":
+                                isVertical = true;
+                                if (x + shipSize - 1 < 10)
+                                {
+                                    while (count > 0)
+                                    {
+                                        board.ocean[x + count, y].SquerStatus = SquareStatus.Ship;
+                                        shipElements.Add(board.ocean[x + count, y]);
+                                        count--;
+
+                                    }
+                                }
+                                else
+                                {
+                                    while (count > 0)
+                                    {
+                                        board.ocean[x - count, y].SquerStatus = SquareStatus.Ship;
+                                        shipElements.Add(board.ocean[x - count, y]);
+                                        count--;
+
+                                    }
+
+                                }
+
+                                break;
+                        }
+
+                        Ship ship = new Ship(shipElements, shipType);
+                        ship.IsVertical = isVertical;
+                        shipElements.Clear();
+
+
+
                         validCoordinate = true;
                     }
 

@@ -12,8 +12,8 @@ namespace OOP_Battleship
         public ShipTypes Type { get; init; }
         public ShipStatus Status { get; private set; } = ShipStatus.normal;
 
-        public bool IsVertical { get; init; }
-       
+        public bool IsVertical { get; set; }
+
 
         public Ship(List<Square> elements, ShipTypes type)
         {
