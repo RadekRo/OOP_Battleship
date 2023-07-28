@@ -29,7 +29,7 @@ public class Display
     //    }
     //    Console.WriteLine("--------------------");
     //}
-    
+
     public void PrintBoard(Board board)
     {
         Console.WriteLine(board);
@@ -92,5 +92,13 @@ public class Display
         Console.Clear();
         Console.WriteLine("You have decided to exit the game...");
         Console.WriteLine("Thank you for playing Battleship!");
+    }
+    public void AskForShipOrientation()
+    {
+        Console.Write("Which way turn the ship, horizontal or vertical? (h/v): ");
+    }
+    public void InvaliOrientationMessage()
+    {
+        Console.WriteLine("WRONG ENTRY! Use only 'h' or 'v'");
     }
 }
