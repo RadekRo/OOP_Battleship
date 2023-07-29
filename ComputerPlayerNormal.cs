@@ -59,13 +59,13 @@ namespace OOP_Battleship
         }
 
 
-        public override Sh Shoot(Player oponent, (int x, int y) shootCoordinates)
+        public override ShootResult Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
             LastShoot = shootCoordinates;
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
-                string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
+                ShootResult shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
                 if (shootResult == ShootResult.Hit)
                 {
                     WasLastShootHit = true;
@@ -254,10 +254,10 @@ namespace OOP_Battleship
             }
         }
 
-        public override string CPUMechanic(Board board, Player oponent)
+        public override ShootResult CPUMechanic(Board board, Player oponent)
         {
             (int x, int y) shootCoordinats = PrepereShootCoordinates(board);
-            string message = Shoot(oponent, shootCoordinats);
+            ShootResult message = Shoot(oponent, shootCoordinats);
             GetPositionToCheck(board);
             FindSquaresToExclude(board);
             return message;
