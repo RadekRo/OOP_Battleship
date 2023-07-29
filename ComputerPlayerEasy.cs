@@ -6,7 +6,7 @@
         public override (int x, int y) GetShootCoordinates()
         {
             Random r = new Random();
-            return (r.Next(0, 9), r.Next(0, 9));
+            return (r.Next(0, (int)FixedVariables.BoardSize - 1), r.Next(0, (int)FixedVariables.BoardSize - 1));
 
         }
 

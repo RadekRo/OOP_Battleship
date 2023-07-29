@@ -152,7 +152,7 @@ namespace OOP_Battleship
 
         public void PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
         {
-            if (startCoordinates.y + shipSize - 1 < 10)
+            if (startCoordinates.y + shipSize - 1 < (int)FixedVariables.MaxShipSize)
             {
                 while (count > 0)
                 {
@@ -178,7 +178,7 @@ namespace OOP_Battleship
         private void PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
         {
 
-            if (startCoordinates.x + shipSize - 1 < 10)
+            if (startCoordinates.x + shipSize - 1 < (int)FixedVariables.MaxShipSize)
             {
                 while (count > 0)
                 {

@@ -11,7 +11,7 @@ namespace OOP_Battleship
 
     internal class ComputerPlayerNormal : ComputerPlayerEasy
     {
-        readonly int MAXSIZESHIP = 5;
+
         public HashSet<(int, int)> SquersToExclude = new HashSet<(int, int)>();
         public HashSet<(int, int)> PositionToCheck = new HashSet<(int, int)>();
         private List<(int, int)> offsets = new List<(int, int)>
@@ -96,7 +96,7 @@ namespace OOP_Battleship
                 int neighborX = position.x + offsetX;
                 int neighborY = position.y + offsetY;
 
-                if (neighborX >= 0 && neighborX < 10 && neighborY >= 0 && neighborY < 10)
+                if (neighborX >= 0 && neighborX < (int)FixedVariables.BoardSize && neighborY >= 0 && neighborY < (int)FixedVariables.BoardSize)
                 {
                     Square s = board.GetSquareAtPosition((neighborX, neighborY));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -109,7 +109,7 @@ namespace OOP_Battleship
         private void SearchHorizontalForShip((int x, int y) firstHit, Board board)
         {
             PositionToCheck.Clear();
-            for (int i = 1; i < MAXSIZESHIP; i++)
+            for (int i = 1; i < (int)FixedVariables.MaxShipSize; i++)
             {
                 if (firstHit.y - i > 0)
                 {
@@ -119,7 +119,7 @@ namespace OOP_Battleship
                         PositionToCheck.Add((firstHit.x, firstHit.y - i));
                     }
                 }
-                if (firstHit.y + i < 10)
+                if (firstHit.y + i < (int)FixedVariables.BoardSize)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y + i));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -133,7 +133,7 @@ namespace OOP_Battleship
         private void SearchVerticalForShip((int x, int y) firstHit, Board board)
         {
             PositionToCheck.Clear();
-            for (int i = 1; i < MAXSIZESHIP; i++)
+            for (int i = 1; i < (int)FixedVariables.MaxShipSize; i++)
             {
                 if (firstHit.x - i > 0)
                 {
@@ -143,7 +143,7 @@ namespace OOP_Battleship
                         PositionToCheck.Add((firstHit.x - i, firstHit.y));
                     }
                 }
-                if (firstHit.y + i < 10)
+                if (firstHit.y + i < (int)FixedVariables.BoardSize)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -158,7 +158,7 @@ namespace OOP_Battleship
             if (LastShoot.y > firstHit.y)
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < MAXSIZESHIP; i++)
+                for (int i = 1; i < (int)FixedVariables.MaxShipSize; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y - i));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -170,7 +170,7 @@ namespace OOP_Battleship
             else
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < MAXSIZESHIP; i++)
+                for (int i = 1; i < (int)FixedVariables.MaxShipSize; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y + i));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -188,7 +188,7 @@ namespace OOP_Battleship
             if (LastShoot.y > firstHit.y)
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < MAXSIZESHIP; i++)
+                for (int i = 1; i < (int)FixedVariables.MaxShipSize; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x - i, firstHit.y));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -200,7 +200,7 @@ namespace OOP_Battleship
             else
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < MAXSIZESHIP; i++)
+                for (int i = 1; i < (int)FixedVariables.MaxShipSize; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
                     if (s.SquerStatus == SquareStatus.Empty)
