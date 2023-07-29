@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -99,6 +100,107 @@ namespace OOP_Battleship
 
             return placed;
         }
+        private void PrintDeployShipMenu(Board board, Player player, ShipTypes shipType)
+        {
+            int shipSize = (int)shipType;
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Player {player.Name}. Deploy your fleet!");
+            Console.ResetColor();
+            Console.WriteLine("------------------------------");
+            displayManager.PrintBoard(board);
+            Console.WriteLine($"Placing {shipType} (size {shipSize})");
+            displayManager.AskForUserCoordinates();
+
+        }
+        private string AskForShipOrientation()
+        {
+            Console.WriteLine("Horizontal or Vertical [h/v]: ");
+            string orientationInput = inputManager.GetStringInput().ToUpper();
+            while (orientationInput != "H" && orientationInput != "V")
+            {
+                Console.WriteLine("Wrong Input");
+                Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine("Horizontal or Vertical [h/v]: ");
+                orientationInput = inputManager.GetStringInput();
+            }
+            return orientationInput;
+        }
+
+        private bool PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements)
+        {
+            board.ocean[startCoordinates.x, startCoordinates.y].SquerStatus = SquareStatus.Ship;
+
+            shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y]);
+            bool isVertical = true;
+            int count = shipSize - 1;
+            switch (orientationInput)
+            {
+                case "H":
+                    isVertical = false;
+                    PutShipHorizontaly(startCoordinates, shipSize, count, board, shipElements);
+                    break;
+                case "V":
+                    isVertical = true;
+                    PutShipVerticaly(startCoordinates, shipSize, count, board, shipElements);
+
+                    break;
+            }
+            return isVertical;
+        }
+
+        public void PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        {
+            if (startCoordinates.y + shipSize - 1 < 10)
+            {
+                while (count > 0)
+                {
+                    board.ocean[startCoordinates.x, startCoordinates.y + count].SquerStatus = SquareStatus.Ship;
+                    shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y + count]);
+                    count--;
+
+                }
+            }
+            else
+            {
+                while (count > 0)
+                {
+                    board.ocean[startCoordinates.x, startCoordinates.y - count].SquerStatus = SquareStatus.Ship;
+                    shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y - count]);
+                    count--;
+
+                }
+
+            }
+        }
+
+        private void PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        {
+
+            if (startCoordinates.x + shipSize - 1 < 10)
+            {
+                while (count > 0)
+                {
+                    board.ocean[startCoordinates.x + count, startCoordinates.y].SquerStatus = SquareStatus.Ship;
+                    shipElements.Add(board.ocean[startCoordinates.x + count, startCoordinates.y]);
+                    count--;
+
+                }
+            }
+            else
+            {
+                while (count > 0)
+                {
+
+                    board.ocean[startCoordinates.x - count, startCoordinates.y].SquerStatus = SquareStatus.Ship;
+                    shipElements.Add(board.ocean[startCoordinates.x - count, startCoordinates.y]);
+                    count--;
+
+                }
+
+            }
+        }
         public void ManualPlacement(Board board, Player player)
         {
 
@@ -110,16 +212,9 @@ namespace OOP_Battleship
 
                 while (!validCoordinate)
                 {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Player {player.Name}. Deploy your fleet!");
-                    Console.ResetColor();
-                    Console.WriteLine("------------------------------");
-                    displayManager.PrintBoard(board);
-                    Console.WriteLine($"Placing {shipType} (size {shipSize})");
-                    displayManager.AskForUserCoordinates();
-                    string shipCoordinates = inputManager.GetStringInput();
 
+                    PrintDeployShipMenu(board, player, shipType);
+                    string shipCoordinates = inputManager.GetStringInput();
                     if (!inputManager.ValidateStringInput(shipCoordinates) ||
                         !inputManager.ValidateCoordinates(shipCoordinates))
                     {
@@ -129,86 +224,28 @@ namespace OOP_Battleship
                     }
                     else
                     {
+                        string orientationInput = AskForShipOrientation();
                         (int x, int y) = inputManager.TranslateCoordinates(shipCoordinates);
-                        board.ocean[x, y].SquerStatus = SquareStatus.Ship;
                         List<Square> shipElements = new List<Square>();
-                        shipElements.Add(board.ocean[x, y]);
-                        Console.WriteLine("Horizontal or Vertical [h/v]: ");
-                        string orientationInput = inputManager.GetStringInput().ToUpper();
-                        while (orientationInput != "H" && orientationInput != "V")
-                        {
-                            Console.WriteLine("Wrong Input");
-                            Thread.Sleep(1000);
-                            Console.Clear();
-                            Console.WriteLine("Horizontal or Vertical [h/v]: ");
-                            orientationInput = inputManager.GetStringInput();
-                        }
-                        bool isVertical = true;
-                        int count = shipSize - 1;
-                        switch (orientationInput)
-                        {
-                            case "H":
-                                isVertical = false;
-                                if (y + shipSize - 1 < 10)
-                                {
-                                    while (count > 0)
-                                    {
-                                        board.ocean[x, y + count].SquerStatus = SquareStatus.Ship;
-                                        shipElements.Add(board.ocean[x, y + count]);
-                                        count--;
-
-                                    }
-                                }
-                                else
-                                {
-                                    while (count > 0)
-                                    {
-                                        board.ocean[x, y - count].SquerStatus = SquareStatus.Ship;
-                                        shipElements.Add(board.ocean[x, y - count]);
-                                        count--;
-
-                                    }
-
-                                }
-
-                                break;
-                            case "V":
-                                isVertical = true;
-                                if (x + shipSize - 1 < 10)
-                                {
-                                    while (count > 0)
-                                    {
-                                        board.ocean[x + count, y].SquerStatus = SquareStatus.Ship;
-                                        shipElements.Add(board.ocean[x + count, y]);
-                                        count--;
-
-                                    }
-                                }
-                                else
-                                {
-                                    while (count > 0)
-                                    {
-                                        board.ocean[x - count, y].SquerStatus = SquareStatus.Ship;
-                                        shipElements.Add(board.ocean[x - count, y]);
-                                        count--;
-
-                                    }
-
-                                }
-
-                                break;
-                        }
-
-                        Ship ship = new Ship(shipElements, shipType);
-                        ship.IsVertical = isVertical;
-                        player.Fleet.Add(ship);
-                        shipElements.Clear();
+                        bool isVertical = PlaceShipOnBoard(board, (x, y), shipSize, orientationInput, shipElements);
+                        AddShipToFleet(shipElements, shipType, isVertical, player);
                         validCoordinate = true;
+
                     }
 
                 }
-                //board.ocean[0, i].SquerStatus = SquareStatus.ship;
+
             }
+        }
+
+        private void AddShipToFleet(List<Square> shipElements, ShipTypes shipType, bool isVertical, Player player)
+        {
+            Ship ship = new Ship(shipElements, shipType);
+            ship.IsVertical = isVertical;
+            player.Fleet.Add(ship);
+            shipElements.Clear();
+
+
         }
     }
 }
