@@ -17,6 +17,8 @@ namespace OOP_Battleship
             this.SquerStatus = status;
         }
 
+        public SquareStatus SquareStatus { get; internal set; }
+
         public string GetCharacter()
         {
             string result = "";

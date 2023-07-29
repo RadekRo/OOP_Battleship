@@ -13,7 +13,7 @@ namespace OOP_Battleship
 
         public int BoardSize { get; internal set; }
 
-        public Board(int rows = (int)FixedVariables.BoardSize, int cols = (int)FixedVariables)
+        public Board(int rows = (int)FixedVariables.BoardSize, int cols = (int)FixedVariables.BoardSize)
         {
             this.rows = rows;
             this.cols = cols;

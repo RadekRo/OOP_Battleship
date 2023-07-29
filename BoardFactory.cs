@@ -70,14 +70,13 @@ namespace OOP_Battleship
         {
             List<(int x, int y)> freeCoordinates = new List<(int x, int y)>();
 
-
-            for (int x = 0; x < board.BoardSize; x++)
+            for (int i = 0; i < board.BoardSize; i++)
             {
-                for (int y = 0; y < board.BoardSize; y++)
+                for (int j = 0; j < board.BoardSize; j++)
                 {
-                    if (board.GetSquareAtPosition((x, y)).SquerStatus == SquareStatus.Empty)
+                    if (board.GetSquareAtPosition((i, j)).SquareStatus == SquareStatus.Empty)
                     {
-                        freeCoordinates.Add((x, y));
+                        freeCoordinates.Add((i, j));
                     }
                 }
             }
@@ -93,13 +92,21 @@ namespace OOP_Battleship
 
                 if (CanPlaceShip(board, ship, randomCoordinate))
                 {
-                    CanPlaceShip(board, ship, randomCoordinate);
+                    PlaceShipOnBoard(board, randomCoordinate, size, RandomOrientation(), ship.Elements);
                     placed = true;
                 }
             }
 
             return placed;
         }
+
+        private string RandomOrientation()
+        {
+            var orientations = new List<string> { "H", "V" };
+            int randomIndex = new Random().Next(0, orientations.Count);
+            return orientations[randomIndex];
+        }
+
         private void PrintDeployShipMenu(Board board, Player player, ShipTypes shipType)
         {
             int shipSize = (int)shipType;
@@ -117,16 +124,19 @@ namespace OOP_Battleship
         {
             Console.WriteLine("Horizontal or Vertical [h/v]: ");
             string orientationInput = inputManager.GetStringInput().ToUpper();
+
             while (orientationInput != "H" && orientationInput != "V")
             {
-                Console.WriteLine("Wrong Input");
+                Console.WriteLine("upss podaj ponownie");
                 Thread.Sleep(1000);
                 Console.Clear();
                 Console.WriteLine("Horizontal or Vertical [h/v]: ");
-                orientationInput = inputManager.GetStringInput();
+                orientationInput = inputManager.GetStringInput().ToUpper();
             }
+
             return orientationInput;
         }
+
 
         private bool PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements)
         {
@@ -248,4 +258,5 @@ namespace OOP_Battleship
 
         }
     }
-}
+ }
+
