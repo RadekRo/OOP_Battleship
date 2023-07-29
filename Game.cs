@@ -37,6 +37,8 @@ namespace OOP_Battleship
                 Battleship.gameActive = false;
             }
         }
+        public void RunTest() { 
+        }
 
     }
 }

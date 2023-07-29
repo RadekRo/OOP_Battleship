@@ -12,67 +12,64 @@ namespace OOP_Battleship
     {
         private Display displayManager = new Display();
         private Input inputManager = new Input();
+        private List<(int, int)> offsets = new List<(int, int)>
+    {
+        (-1, 0), (1, 0), (0, -1), (0, 1), // Left, Right, Up, Down
+        (-1, -1), (-1, 1), (1, -1), (1, 1) // Diagonal neighbors
+    };
+
 
 
         // ---------
 
 
 
-        private bool CanPlaceShip(Board board, Ship ship, (int x, int y) coordinates)
+        private bool CanPlaceShip(Board board, (int x, int y) coordinates)
         {
 
-            int size = ship.Elements.Count;
 
-            if (ship.IsVertical)
+            if (board.ocean[coordinates.x, coordinates.y].SquerStatus == SquareStatus.Empty)
             {
-                // if (y + size > BoardSize) return false
+                foreach ((int offsetX, int offsetY) in offsets)
+                {
+                    int neighbourX = coordinates.x + offsetX;
+                    int neighbourY = coordinates.y + offsetY;
+                    if (neighbourX >= 0 && neighbourX < (int)FixedVariables.BoardSize && neighbourY >= 0 && neighbourY < (int)FixedVariables.BoardSize)
+                    {
+                        if (board.ocean[neighbourX, neighbourY].SquerStatus == SquareStatus.Ship)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
             }
+            return false;
 
-            else
-            {
-                // if (y + size > BoardSize) return false
-            }
-
-            var initialPos = ship.Elements[0].Position;
-
-            if (board.GetSquareAtPosition(initialPos).SquerStatus != SquareStatus.Empty) return false;
-
-            for (int i = 0; i < size; i++)
-            {
-                int posX = ship.IsVertical ? initialPos.x : initialPos.x + i;
-                int posY = ship.IsVertical ? initialPos.y = initialPos.y + i : initialPos.y;
-
-                if (board.GetSquareAtPosition((posX, posY)).SquerStatus != SquareStatus.Empty) return false;
-
-            }
-
-            return true;
 
         }
-        // public bool RandomPlacement(Board board, Ship ship, (int x, int y) coordinates)
-        // {
-        //  if (!CanPlaceShip(board, ship, coordinates))
-        //  {
-        //     return false;
-        //  }
 
-        // lista wolnych coordinates
-        // wybierz dowolny koordynat z listy
-        // jak nie mozna położyć statku to usuwasz koordynat z listy
-        // jak mozesz, to kladziesz
-        //  done
+        public void PrepareRandomBoard(Board board)
+        {
+            foreach (ShipTypes shipType in Enum.GetValues(typeof(ShipTypes)))
+            {
+                bool placed = false;
+                while (!placed)
+                {
+                    Ship ship = new Ship(shipType);
+                    ship.Elements = new List<Square>((int)shipType);
+                    placed = RandomPlacement(board, (int)shipType, ship);
+                }
 
-
-        // return true;
-
-        // }
-        public bool RandomPlacement(Board board, Ship ship, (int x, int y) coordinates)
+            }
+        }
+        public bool RandomPlacement(Board board, int size, Ship ship)
         {
             List<(int x, int y)> freeCoordinates = new List<(int x, int y)>();
 
-            for (int i = 0; i < board.BoardSize; i++)
+            for (int i = 0; i < (int)FixedVariables.BoardSize; i++)
             {
-                for (int j = 0; j < board.BoardSize; j++)
+                for (int j = 0; j < (int)FixedVariables.BoardSize; j++)
                 {
                     if (board.GetSquareAtPosition((i, j)).SquareStatus == SquareStatus.Empty)
                     {
@@ -81,7 +78,6 @@ namespace OOP_Battleship
                 }
             }
 
-            int size = ship.Elements.Count;
             bool placed = false;
 
             while (freeCoordinates.Count > 0 && !placed)
@@ -90,9 +86,10 @@ namespace OOP_Battleship
                 var randomCoordinate = freeCoordinates[randomIndex];
                 freeCoordinates.RemoveAt(randomIndex);
 
-                if (CanPlaceShip(board, ship, randomCoordinate))
+                if (CanPlaceShip(board, randomCoordinate))
                 {
-                    PlaceShipOnBoard(board, randomCoordinate, size, RandomOrientation(), ship.Elements);
+                    bool isVertical = false;
+                    PlaceShipOnBoard(board, randomCoordinate, size, RandomOrientation(), ship.Elements, isVertical);
                     placed = true;
                 }
             }
@@ -138,78 +135,111 @@ namespace OOP_Battleship
         }
 
 
-        private bool PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements)
+        private bool PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements, bool isVertical)
         {
-            board.ocean[startCoordinates.x, startCoordinates.y].SquerStatus = SquareStatus.Ship;
 
-            shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y]);
-            bool isVertical = true;
-            int count = shipSize - 1;
+            bool shipPut = false;
             switch (orientationInput)
             {
                 case "H":
                     isVertical = false;
-                    PutShipHorizontaly(startCoordinates, shipSize, count, board, shipElements);
+                    shipPut = PutShipHorizontaly(startCoordinates, shipSize, board, shipElements);
                     break;
                 case "V":
                     isVertical = true;
-                    PutShipVerticaly(startCoordinates, shipSize, count, board, shipElements);
+                    shipPut = PutShipVerticaly(startCoordinates, shipSize, board, shipElements);
 
                     break;
             }
-            return isVertical;
+            return shipPut;
         }
 
-        public void PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        public bool PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, Board board, List<Square> shipElements)
         {
-            if (startCoordinates.y + shipSize - 1 < (int)FixedVariables.MaxShipSize)
+            List<(int, int)> possiblePlacment = new List<(int, int)>();
+            int count = 0;
+            bool shipPut = true;
+            if (startCoordinates.y + shipSize - 1 < (int)FixedVariables.BoardSize)
             {
-                while (count > 0)
+                while (count < shipSize)
                 {
-                    board.ocean[startCoordinates.x, startCoordinates.y + count].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y + count]);
-                    count--;
-
+                    possiblePlacment.Add((startCoordinates.x, startCoordinates.y + count));
+                    count++;
                 }
             }
             else
             {
-                while (count > 0)
+                while (count < shipSize)
                 {
-                    board.ocean[startCoordinates.x, startCoordinates.y - count].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y - count]);
-                    count--;
+                    possiblePlacment.Add((startCoordinates.x, startCoordinates.y - count));
+                    count++;
+                }
+            }
+
+            foreach ((int, int) placment in possiblePlacment)
+            {
+                if (!CanPlaceShip(board, placment))
+                {
+                    shipPut = false;
+                    possiblePlacment.Clear();
+                    break;
 
                 }
-
             }
+            if (shipPut)
+            {
+                foreach ((int x, int y) placment in possiblePlacment)
+                {
+                    board.ocean[placment.x, placment.y].SquerStatus = SquareStatus.Ship;
+                }
+            }
+
+            return shipPut;
         }
 
-        private void PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+
+
+        private bool PutShipVerticaly((int x, int y) startCoordinates, int shipSize, Board board, List<Square> shipElements)
         {
-
-            if (startCoordinates.x + shipSize - 1 < (int)FixedVariables.MaxShipSize)
+            List<(int, int)> possiblePlacment = new List<(int, int)>();
+            int count = 0;
+            bool shipPut = true;
+            if (startCoordinates.x + shipSize - 1 < (int)FixedVariables.BoardSize)
             {
-                while (count > 0)
+                while (count < shipSize)
                 {
-                    board.ocean[startCoordinates.x + count, startCoordinates.y].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x + count, startCoordinates.y]);
-                    count--;
-
+                    possiblePlacment.Add((startCoordinates.x + count, startCoordinates.y));
+                    count++;
                 }
             }
             else
             {
-                while (count > 0)
+                while (count < shipSize)
                 {
+                    possiblePlacment.Add((startCoordinates.x - count, startCoordinates.y));
+                    count++;
+                }
+            }
 
-                    board.ocean[startCoordinates.x - count, startCoordinates.y].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x - count, startCoordinates.y]);
-                    count--;
+            foreach ((int, int) placment in possiblePlacment)
+            {
+                if (!CanPlaceShip(board, placment))
+                {
+                    shipPut = false;
+                    possiblePlacment.Clear();
+                    break;
 
                 }
-
             }
+            if (shipPut)
+            {
+                foreach ((int x, int y) placment in possiblePlacment)
+                {
+                    board.ocean[placment.x, placment.y].SquerStatus = SquareStatus.Ship;
+                }
+            }
+
+            return shipPut;
         }
         public void ManualPlacement(Board board, Player player)
         {
@@ -234,10 +264,17 @@ namespace OOP_Battleship
                     }
                     else
                     {
-                        string orientationInput = AskForShipOrientation();
                         (int x, int y) = inputManager.TranslateCoordinates(shipCoordinates);
+
                         List<Square> shipElements = new List<Square>();
-                        bool isVertical = PlaceShipOnBoard(board, (x, y), shipSize, orientationInput, shipElements);
+                        bool isVertical = false;
+                        string orientationInput = AskForShipOrientation();
+                        if (!PlaceShipOnBoard(board, (x, y), shipSize, orientationInput, shipElements, isVertical))
+                        {
+                            displayManager.InvalidCoordinate();
+                            Thread.Sleep(1000);
+                            continue;
+                        }
                         AddShipToFleet(shipElements, shipType, isVertical, player);
                         validCoordinate = true;
 
@@ -250,7 +287,9 @@ namespace OOP_Battleship
 
         private void AddShipToFleet(List<Square> shipElements, ShipTypes shipType, bool isVertical, Player player)
         {
-            Ship ship = new Ship(shipElements, shipType);
+            Ship ship = new Ship(shipType);
+            ship.Elements = shipElements;
+
             ship.IsVertical = isVertical;
             player.Fleet.Add(ship);
             shipElements.Clear();
@@ -258,5 +297,5 @@ namespace OOP_Battleship
 
         }
     }
- }
+}
 

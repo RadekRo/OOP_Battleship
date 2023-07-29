@@ -15,10 +15,9 @@ namespace OOP_Battleship
         public bool IsVertical { get; set; }
 
 
-        public Ship(List<Square> elements, ShipTypes type)
+        public Ship(ShipTypes type)
         {
 
-            this.Elements = elements;
             this.Type = type;
 
 

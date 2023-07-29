@@ -20,7 +20,7 @@ namespace OOP_Battleship
             while (gameActive)
             {
                 DisplayMainMenu();
-                
+
                 switch (userChoice)
                 {
                     case 1:
@@ -31,6 +31,9 @@ namespace OOP_Battleship
                         break;
                     case 3:
                         gameActive = false;
+                        break;
+                    case 4:
+                        ShowComputerBoard();
                         break;
                     default:
                         displayManager.InvalidChoice();
@@ -44,7 +47,7 @@ namespace OOP_Battleship
         private void DisplayMainMenu()
         {
             displayManager.PrintMenu();
-            userChoice = inputManager.GetDigitInput();   
+            userChoice = inputManager.GetDigitInput();
         }
 
         private void StartGame()
@@ -61,6 +64,15 @@ namespace OOP_Battleship
         private void ExitGame()
         {
             displayManager.EndGame();
+        }
+        private void ShowComputerBoard()
+        {
+            Console.Clear();
+            Board board = new Board();
+            BoardFactory factory = new BoardFactory();
+            factory.PrepareRandomBoard(board);
+            displayManager.PrintBoard(board);
+
         }
     }
 }

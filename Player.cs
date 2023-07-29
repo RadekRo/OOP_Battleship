@@ -17,7 +17,7 @@
         public List<Ship> Fleet = new List<Ship>();
         public bool IsAlive { get; private set; } = true;
 
-        public int PlayerNumber { get; init; }
+
 
 
         public virtual (int x, int y) GetShootCoordinates()
