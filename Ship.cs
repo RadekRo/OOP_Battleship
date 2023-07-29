@@ -21,10 +21,7 @@ namespace OOP_Battleship
             this.Elements = elements;
             this.Type = type;
 
-            if (elements.Count < 1)
-            {
-                throw new Exception("Ship cannot have less 0 elements");
-            }
+
 
         }
         public void ChangeShipStatus(ShipStatus status)

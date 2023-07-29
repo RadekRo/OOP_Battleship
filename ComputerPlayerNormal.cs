@@ -11,6 +11,7 @@ namespace OOP_Battleship
 
     internal class ComputerPlayerNormal : ComputerPlayerEasy
     {
+        readonly int MAXSIZESHIP = 5;
         public HashSet<(int, int)> SquersToExclude = new HashSet<(int, int)>();
         public HashSet<(int, int)> PositionToCheck = new HashSet<(int, int)>();
         private List<(int, int)> offsets = new List<(int, int)>
@@ -58,14 +59,14 @@ namespace OOP_Battleship
         }
 
 
-        public override string Shoot(Player oponent, (int x, int y) shootCoordinates)
+        public override Sh Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
             LastShoot = shootCoordinates;
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
                 string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
-                if (shootResult == "Hit!")
+                if (shootResult == ShootResult.Hit)
                 {
                     WasLastShootHit = true;
                     LastShootShip.Add(shootCoordinates);
@@ -76,14 +77,14 @@ namespace OOP_Battleship
                         WasLastShootHit = false;
                         LastShootShip.Clear();
                         PositionToCheck.Clear();
-                        return "Ship sunk!";
+                        return ShootResult.Sunk;
                     }
 
-                    return "Ship hit!";
+                    return ShootResult.Hit;
                 }
             }
             WasLastShootHit = false;
-            return "Miss!";
+            return ShootResult.Miss;
 
         }
 
@@ -108,7 +109,7 @@ namespace OOP_Battleship
         private void SearchHorizontalForShip((int x, int y) firstHit, Board board)
         {
             PositionToCheck.Clear();
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < MAXSIZESHIP; i++)
             {
                 if (firstHit.y - i > 0)
                 {
@@ -132,7 +133,7 @@ namespace OOP_Battleship
         private void SearchVerticalForShip((int x, int y) firstHit, Board board)
         {
             PositionToCheck.Clear();
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < MAXSIZESHIP; i++)
             {
                 if (firstHit.x - i > 0)
                 {
@@ -157,7 +158,7 @@ namespace OOP_Battleship
             if (LastShoot.y > firstHit.y)
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < MAXSIZESHIP; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y - i));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -169,7 +170,7 @@ namespace OOP_Battleship
             else
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < MAXSIZESHIP; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x, firstHit.y + i));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -187,7 +188,7 @@ namespace OOP_Battleship
             if (LastShoot.y > firstHit.y)
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < MAXSIZESHIP; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x - i, firstHit.y));
                     if (s.SquerStatus == SquareStatus.Empty)
@@ -199,7 +200,7 @@ namespace OOP_Battleship
             else
             {
                 PositionToCheck.Clear();
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < MAXSIZESHIP; i++)
                 {
                     Square s = board.GetSquareAtPosition((firstHit.x + i, firstHit.y));
                     if (s.SquerStatus == SquareStatus.Empty)

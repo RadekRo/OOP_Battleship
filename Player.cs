@@ -34,7 +34,7 @@
 
         }
 
-        protected string CheckIfHit((int x, int y) shootCoordinates, Ship ship)
+        protected ShootResult CheckIfHit((int x, int y) shootCoordinates, Ship ship)
         {
 
             for (int i = 0; i < (int)ship.Type; i++)
@@ -44,32 +44,32 @@
                 {
                     squer.SquerStatus = SquareStatus.Hit;
                     ship.ChangeShipStatus(ShipStatus.damaged);
-                    return "Hit!";
+                    return ShootResult.Hit;
 
                 }
             }
-            return "Miss!";
+            return ShootResult.Miss;
         }
 
 
-        public virtual string Shoot(Player oponent, (int x, int y) shootCoordinates)
+        public virtual ShootResult Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
-                string shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
-                if (shootResult == "Hit!")
+                ShootResult shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
+                if (shootResult == ShootResult.Hit)
                 {
                     if (oponentFleet[i].CheckIfShipSink())
                     {
                         oponentFleet[i].ShipSink();
                         oponent.CheckIfAllSunk();
-                        return "Ship sunk!";
+                        return ShootResult.Sunk;
                     }
-                    return "Ship hit!";
+                    return ShootResult.Hit;
                 }
             }
-            return "Miss!";
+            return ShootResult.Miss;
 
         }
 
