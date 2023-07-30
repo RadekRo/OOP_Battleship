@@ -58,6 +58,8 @@ namespace OOP_Battleship
                             playerOneBoard.ocean[x, y] = new Square((x, y), SquareStatus.Miss);
                             break;
                     }
+                    Console.Write(effect.ToString());
+                    Thread.Sleep(1000);
                     currentPlayer = 2;               }
                 else
                 {
@@ -76,6 +78,8 @@ namespace OOP_Battleship
                             playerTwoBoard.ocean[x, y] = new Square((x, y), SquareStatus.Miss);
                             break;
                     }
+                    Console.Write(effect.ToString());
+                    Thread.Sleep(1000);
                     currentPlayer = 1;
                 }
 
