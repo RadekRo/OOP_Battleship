@@ -41,30 +41,44 @@ namespace OOP_Battleship
             {
                 Console.Clear();
                 Console.WriteLine($"Player {currentPlayer} shooting phase");
-                //Console.WriteLine(playerOne.IsPlayerDead());
                 if (currentPlayer == 1)
                 {
                     Console.WriteLine(playerOneBoard);
                     (int x, int y) = playerOne.GetShootCoordinates();
-                    Console.WriteLine(x);
-                    Console.WriteLine(y);
                     var effect = playerOne.Shoot(playerTwo, (x, y));
-                    Console.WriteLine(effect);
-                    //playerOneBoard.ocean[x, y] = effect[0];
-
-                    //Console.WriteLine(input);
-                    Console.ReadLine();
-                    currentPlayer = 2;
-                    currentBoard = playerOneBoard;
-                }
+                    switch (effect.ToString())
+                    {
+                        case "Hit":
+                            playerOneBoard.ocean[x, y] = new Square((x, y), SquareStatus.Hit);
+                            break;
+                        case "Sunk":
+                            playerOneBoard.ocean[x, y] = new Square((x, y), SquareStatus.Sink);
+                            break;
+                        default:
+                            playerOneBoard.ocean[x, y] = new Square((x, y), SquareStatus.Miss);
+                            break;
+                    }
+                    currentPlayer = 2;               }
                 else
                 {
-                    var input = playerTwo.GetShootCoordinates();
-                    //Console.WriteLine(input);
-                    //Console.ReadLine();
+                    Console.WriteLine(playerTwoBoard);
+                    (int x, int y) = playerTwo.GetShootCoordinates();
+                    var effect = playerTwo.Shoot(playerOne, (x, y));
+                    switch (effect.ToString())
+                    {
+                        case "Hit":
+                            playerTwoBoard.ocean[x, y] = new Square((x, y), SquareStatus.Hit);
+                            break;
+                        case "Sunk":
+                            playerTwoBoard.ocean[x, y] = new Square((x, y), SquareStatus.Sink);
+                            break;
+                        default:
+                            playerTwoBoard.ocean[x, y] = new Square((x, y), SquareStatus.Miss);
+                            break;
+                    }
                     currentPlayer = 1;
-                    currentBoard = playerTwoBoard;
                 }
+
             }
         }
 
