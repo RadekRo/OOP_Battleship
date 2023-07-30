@@ -42,32 +42,33 @@ namespace OOP_Battleship
             while (Battleship.gameActive)
             {
                 playerOneBoard.AddPlayertoBoard(playerTwo);
-
                 playerTwoBoard.AddPlayertoBoard(playerOne);
                 Console.Clear();
                 Console.WriteLine($"Player {currentPlayer} shooting phase");
-                Console.WriteLine(currentBoard);
-                //Console.WriteLine(playerOne.IsPlayerDead());
+
                 if (currentPlayer == 1)
                 {
+                    currentBoard = playerOneBoard;
+                    Console.WriteLine(currentBoard);
+                    (int x, int y) = playerOne.GetShootCoordinates();
+                    var effect = playerOne.Shoot(playerTwo, (x, y), currentBoard);
 
-                    var input = playerOne.GetShootCoordinates();
-
-                    Console.WriteLine(playerOne.Shoot(playerTwo, input, currentBoard));
-
-                    //Console.WriteLine(input);
-                    //Console.ReadLine();
+                    Console.Write(effect.ToString());
+                    Thread.Sleep(1000);
                     currentPlayer = 2;
-                    currentBoard = playerTwoBoard;
                 }
                 else
                 {
-                    var input = playerTwo.GetShootCoordinates();
-                    //Console.WriteLine(input);
-                    //Console.ReadLine();
+                    currentBoard = playerTwoBoard;
+                    Console.WriteLine(currentBoard);
+                    (int x, int y) = playerTwo.GetShootCoordinates();
+                    var effect = playerTwo.Shoot(playerOne, (x, y), currentBoard);
+
+                    Console.Write(effect.ToString());
+                    Thread.Sleep(1000);
                     currentPlayer = 1;
-                    currentBoard = playerOneBoard;
                 }
+
             }
         }
 
