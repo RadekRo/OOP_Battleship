@@ -27,7 +27,7 @@ namespace OOP_Battleship
             string coordinates;
             do
             {
-                Console.WriteLine("Input Coordinates");
+                Console.Write("Input Shot Coordinates: ");
                 coordinates = input.GetStringInput();
             }
             while (!input.ValidateStringInput(coordinates) || !input.ValidateCoordinates(coordinates));
@@ -56,7 +56,7 @@ namespace OOP_Battleship
         public virtual ShootResult Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
             List<Ship> oponentFleet = oponent.Fleet;
-            for (int i = 0; i < oponentFleet.Count; i++)
+            for (int i = 0; i <= oponentFleet.Count; i++)
             {
                 ShootResult shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
                 if (shootResult == ShootResult.Hit)
