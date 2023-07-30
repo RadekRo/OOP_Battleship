@@ -39,8 +39,10 @@ namespace OOP_Battleship
 
             while (Battleship.gameActive)
             {
+                Console.Clear();
                 Console.WriteLine($"Player {currentPlayer} shooting phase");
                 Console.WriteLine(currentBoard);
+                //Console.WriteLine(playerOne.IsPlayerDead());
                 Console.ReadLine();
                 if (currentPlayer == 1)
                 {

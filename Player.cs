@@ -93,7 +93,7 @@ namespace OOP_Battleship
 
         public bool IsPlayerDead()
         {
-            return this.IsAlive;
+            return !this.IsAlive;
         }
 
     }
