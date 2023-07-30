@@ -56,7 +56,7 @@ namespace OOP_Battleship
         public virtual ShootResult Shoot(Player oponent, (int x, int y) shootCoordinates)
         {
             List<Ship> oponentFleet = oponent.Fleet;
-            for (int i = 0; i <= oponentFleet.Count; i++)
+            for (int i = 0; i < oponentFleet.Count; i++)
             {
                 ShootResult shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
                 if (shootResult == ShootResult.Hit)
