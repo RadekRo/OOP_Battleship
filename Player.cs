@@ -16,10 +16,15 @@ namespace OOP_Battleship
                 _name = value;
             }
         }
-        public List<Ship> Fleet = new List<Ship>();
+        public List<Ship> Fleet;
         public bool IsAlive { get; private set; } = true;
 
         public int PlayerNumber { get; set; }
+
+        public Player()
+        {
+            Fleet = new List<Ship>();
+        }
 
         public virtual (int x, int y) GetShootCoordinates()
         {
@@ -95,8 +100,13 @@ namespace OOP_Battleship
         {
             return !this.IsAlive;
         }
+        public void AddShipToFleet(List<Square> shipElements, ShipTypes shipType)
+        {
+            Fleet.Add(new Ship(shipElements, shipType));
+        }
 
     }
 
-
 }
+
+

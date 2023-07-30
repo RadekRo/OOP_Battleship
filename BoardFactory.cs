@@ -135,29 +135,29 @@ namespace OOP_Battleship
         }
 
 
-        private bool PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements)
+        private List<Square> PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements)
         {
             board.ocean[startCoordinates.x, startCoordinates.y].SquerStatus = SquareStatus.Ship;
 
             shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y]);
-            bool isVertical = true;
+
             int count = shipSize - 1;
             switch (orientationInput)
             {
                 case "H":
-                    isVertical = false;
+
                     PutShipHorizontaly(startCoordinates, shipSize, count, board, shipElements);
                     break;
                 case "V":
-                    isVertical = true;
+
                     PutShipVerticaly(startCoordinates, shipSize, count, board, shipElements);
 
                     break;
             }
-            return isVertical;
+            return shipElements;
         }
 
-        public void PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        public List<Square> PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
         {
             if (startCoordinates.y + shipSize - 1 < (int)FixedVariables.MaxShipSize)
             {
@@ -180,9 +180,10 @@ namespace OOP_Battleship
                 }
 
             }
+            return shipElements;
         }
 
-        private void PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        private List<Square> PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
         {
 
             if (startCoordinates.x + shipSize - 1 < (int)FixedVariables.MaxShipSize)
@@ -207,6 +208,7 @@ namespace OOP_Battleship
                 }
 
             }
+            return shipElements;
         }
         public void ManualPlacement(Board board, Player player)
         {
@@ -234,8 +236,8 @@ namespace OOP_Battleship
                         string orientationInput = AskForShipOrientation();
                         (int x, int y) = inputManager.TranslateCoordinates(shipCoordinates);
                         List<Square> shipElements = new List<Square>();
-                        bool isVertical = PlaceShipOnBoard(board, (x, y), shipSize, orientationInput, shipElements);
-                        AddShipToFleet(shipElements, shipType, isVertical, player);
+                        shipElements = PlaceShipOnBoard(board, (x, y), shipSize, orientationInput, shipElements);
+                        player.AddShipToFleet(shipElements, shipType);
                         validCoordinate = true;
 
                     }
@@ -245,15 +247,7 @@ namespace OOP_Battleship
             }
         }
 
-        private void AddShipToFleet(List<Square> shipElements, ShipTypes shipType, bool isVertical, Player player)
-        {
-            Ship ship = new Ship(shipElements, shipType);
-            ship.IsVertical = isVertical;
-            player.Fleet.Add(ship);
-            shipElements.Clear();
 
-
-        }
     }
- }
+}
 
