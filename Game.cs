@@ -85,8 +85,8 @@ namespace OOP_Battleship
 
             }
             Console.WriteLine();
-            Console.WriteLine("----- Koniec gry -----");
-            Console.WriteLine($"Gracz {currentPlayer} wygrał");
+            Console.WriteLine("----- END OF THE GAME -----");
+            Console.WriteLine($"PLAYER {currentPlayer} WON!");
             Thread.Sleep(5000);
 
         }
