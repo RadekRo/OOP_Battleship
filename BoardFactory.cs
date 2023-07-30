@@ -160,7 +160,7 @@ namespace OOP_Battleship
         public List<Square> PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board)
         {
             List<Square> shipElements = new List<Square>();
-            if (startCoordinates.y + shipSize - 1 < (int)FixedVariables.MaxShipSize)
+            if (startCoordinates.y + shipSize  < (int)FixedVariables.BoardSize)
             {
                 while (count >= 0)
                 {
@@ -191,7 +191,7 @@ namespace OOP_Battleship
         private List<Square> PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board)
         {
             List<Square> shipElements = new List<Square>();
-            if (startCoordinates.x + shipSize - 1 < (int)FixedVariables.MaxShipSize)
+            if (startCoordinates.x + shipSize < (int)FixedVariables.BoardSize)
             {
                 while (count >= 0)
                 {
@@ -208,7 +208,7 @@ namespace OOP_Battleship
                 while (count >= 0)
                 {
 
-                    board.UpdateOcean(startCoordinates.x + count, startCoordinates.y, SquareStatus.Ship);
+                    board.UpdateOcean(startCoordinates.x - count, startCoordinates.y, SquareStatus.Ship);
                     Square s = new Square((startCoordinates.x - count, startCoordinates.y));
                     s.SquereStatus = SquareStatus.Ship;
                     shipElements.Add(s);
