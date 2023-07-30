@@ -41,12 +41,16 @@ namespace OOP_Battleship
             {
                 Console.Clear();
                 Console.WriteLine($"Player {currentPlayer} shooting phase");
-                Console.WriteLine(currentBoard);
                 //Console.WriteLine(playerOne.IsPlayerDead());
                 if (currentPlayer == 1)
                 {
-                    var input = playerOne.GetShootCoordinates();
-                    Console.WriteLine(playerOne.Shoot(playerTwo, input));
+                    Console.WriteLine(playerOneBoard);
+                    (int x, int y) = playerOne.GetShootCoordinates();
+                    Console.WriteLine(x);
+                    Console.WriteLine(y);
+                    var effect = playerOne.Shoot(playerTwo, (x, y));
+                    Console.WriteLine(effect);
+                    //playerOneBoard.ocean[x, y] = effect[0];
 
                     //Console.WriteLine(input);
                     Console.ReadLine();

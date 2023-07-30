@@ -8,8 +8,8 @@ namespace OOP_Battleship
 {
     public enum ShootResult
     {
-        Hit = 'H',
-        Miss = 'M',
-        Sunk = 'S',
+        Hit,
+        Miss,
+        Sunk,
     }
 }
