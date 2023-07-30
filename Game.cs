@@ -55,7 +55,15 @@ namespace OOP_Battleship
 
                     Console.Write(effect.ToString());
                     Thread.Sleep(1000);
+
+                    if (playerTwo.IsPlayerDead())
+                    {
+
+                        Battleship.gameActive = false;
+                        break;
+                    }
                     currentPlayer = 2;
+
                 }
                 else
                 {
@@ -66,11 +74,25 @@ namespace OOP_Battleship
 
                     Console.Write(effect.ToString());
                     Thread.Sleep(1000);
+
+                    if (playerTwo.IsPlayerDead())
+                    {
+                        Battleship.gameActive = false;
+                        break;
+                    }
                     currentPlayer = 1;
                 }
 
             }
+            Console.WriteLine();
+            Console.WriteLine("----- Koniec gry -----");
+            Console.WriteLine($"Gracz {currentPlayer} wygrał");
+            Thread.Sleep(5000);
+
         }
 
+
     }
+
+
 }
