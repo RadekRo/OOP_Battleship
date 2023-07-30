@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Battleship
 {
-    enum ShipTypes
+    public enum ShipTypes
     {
         Destroyer = 2,
         //Battleship,

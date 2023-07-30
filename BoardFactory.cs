@@ -32,14 +32,14 @@ namespace OOP_Battleship
 
             var initialPos = ship.Elements[0].Position;
 
-            if (board.GetSquareAtPosition(initialPos).SquerStatus != SquareStatus.Empty) return false;
+            if (board.GetSquareAtPosition(initialPos).SquereStatus != SquareStatus.Empty) return false;
 
             for (int i = 0; i < size; i++)
             {
                 int posX = ship.IsVertical ? initialPos.x : initialPos.x + i;
                 int posY = ship.IsVertical ? initialPos.y = initialPos.y + i : initialPos.y;
 
-                if (board.GetSquareAtPosition((posX, posY)).SquerStatus != SquareStatus.Empty) return false;
+                if (board.GetSquareAtPosition((posX, posY)).SquereStatus != SquareStatus.Empty) return false;
 
             }
 
@@ -71,7 +71,7 @@ namespace OOP_Battleship
             {
                 for (int j = 0; j < board.BoardSize; j++)
                 {
-                    if (board.GetSquareAtPosition((i, j)).SquareStatus == SquareStatus.Empty)
+                    if (board.GetSquareAtPosition((i, j)).SquereStatus == SquareStatus.Empty)
                     {
                         freeCoordinates.Add((i, j));
                     }
@@ -89,7 +89,7 @@ namespace OOP_Battleship
 
                 if (CanPlaceShip(board, ship, randomCoordinate))
                 {
-                    PlaceShipOnBoard(board, randomCoordinate, size, RandomOrientation(), ship.Elements);
+                    PlaceShipOnBoard(board, randomCoordinate, size, RandomOrientation());
                     placed = true;
                 }
             }
@@ -135,46 +135,51 @@ namespace OOP_Battleship
         }
 
 
-        private List<Square> PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput, List<Square> shipElements)
+        private List<Square> PlaceShipOnBoard(Board board, (int x, int y) startCoordinates, int shipSize, string orientationInput)
         {
-            board.ocean[startCoordinates.x, startCoordinates.y].SquerStatus = SquareStatus.Ship;
 
-            shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y]);
+            board.ocean[startCoordinates.x, startCoordinates.y].SquereStatus = SquareStatus.Ship;
 
+            List<Square> shipElements = new List<Square>();
             int count = shipSize - 1;
             switch (orientationInput)
             {
                 case "H":
 
-                    PutShipHorizontaly(startCoordinates, shipSize, count, board, shipElements);
+                    shipElements.AddRange(PutShipHorizontaly(startCoordinates, shipSize, count, board));
                     break;
                 case "V":
 
-                    PutShipVerticaly(startCoordinates, shipSize, count, board, shipElements);
+                    shipElements.AddRange(PutShipVerticaly(startCoordinates, shipSize, count, board));
 
                     break;
             }
             return shipElements;
         }
 
-        public List<Square> PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        public List<Square> PutShipHorizontaly((int x, int y) startCoordinates, int shipSize, int count, Board board)
         {
+            List<Square> shipElements = new List<Square>();
             if (startCoordinates.y + shipSize - 1 < (int)FixedVariables.MaxShipSize)
             {
-                while (count > 0)
+                while (count >= 0)
                 {
-                    board.ocean[startCoordinates.x, startCoordinates.y + count].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y + count]);
+                    board.UpdateOcean(startCoordinates.x, startCoordinates.y + count, SquareStatus.Ship);
+                    Square s = new Square((startCoordinates.x, startCoordinates.y + count));
+                    s.SquereStatus = SquareStatus.Ship;
+                    shipElements.Add(s);
                     count--;
 
                 }
             }
             else
             {
-                while (count > 0)
+                while (count >= 0)
                 {
-                    board.ocean[startCoordinates.x, startCoordinates.y - count].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x, startCoordinates.y - count]);
+                    board.UpdateOcean(startCoordinates.x, startCoordinates.y - count, SquareStatus.Ship);
+                    Square s = new Square((startCoordinates.x, startCoordinates.y - count));
+                    s.SquereStatus = SquareStatus.Ship;
+                    shipElements.Add(s);
                     count--;
 
                 }
@@ -183,26 +188,30 @@ namespace OOP_Battleship
             return shipElements;
         }
 
-        private List<Square> PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board, List<Square> shipElements)
+        private List<Square> PutShipVerticaly((int x, int y) startCoordinates, int shipSize, int count, Board board)
         {
-
+            List<Square> shipElements = new List<Square>();
             if (startCoordinates.x + shipSize - 1 < (int)FixedVariables.MaxShipSize)
             {
-                while (count > 0)
+                while (count >= 0)
                 {
-                    board.ocean[startCoordinates.x + count, startCoordinates.y].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x + count, startCoordinates.y]);
+                    board.UpdateOcean(startCoordinates.x + count, startCoordinates.y, SquareStatus.Ship);
+                    Square s = new Square((startCoordinates.x + count, startCoordinates.y));
+                    s.SquereStatus = SquareStatus.Ship;
+                    shipElements.Add(s);
                     count--;
 
                 }
             }
             else
             {
-                while (count > 0)
+                while (count >= 0)
                 {
 
-                    board.ocean[startCoordinates.x - count, startCoordinates.y].SquerStatus = SquareStatus.Ship;
-                    shipElements.Add(board.ocean[startCoordinates.x - count, startCoordinates.y]);
+                    board.UpdateOcean(startCoordinates.x + count, startCoordinates.y, SquareStatus.Ship);
+                    Square s = new Square((startCoordinates.x - count, startCoordinates.y));
+                    s.SquereStatus = SquareStatus.Ship;
+                    shipElements.Add(s);
                     count--;
 
                 }
@@ -235,8 +244,8 @@ namespace OOP_Battleship
                     {
                         string orientationInput = AskForShipOrientation();
                         (int x, int y) = inputManager.TranslateCoordinates(shipCoordinates);
-                        List<Square> shipElements = new List<Square>();
-                        shipElements = PlaceShipOnBoard(board, (x, y), shipSize, orientationInput, shipElements);
+                        List<Square> shipElements = PlaceShipOnBoard(board, (x, y), shipSize, orientationInput);
+
                         player.AddShipToFleet(shipElements, shipType);
                         validCoordinate = true;
 

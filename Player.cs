@@ -2,7 +2,7 @@
 
 namespace OOP_Battleship
 {
-    class Player
+    public class Player
     {
         private string? _name;
         public string Name
@@ -40,32 +40,35 @@ namespace OOP_Battleship
 
         }
 
-        protected ShootResult CheckIfHit((int x, int y) shootCoordinates, Ship ship)
+        protected ShootResult CheckIfHit((int x, int y) shootCoordinates, Ship ship, Board board)
         {
 
             for (int i = 0; i < (int)ship.Type; i++)
             {
-                Square squer = ship.Elements[i];
-                if (shootCoordinates == squer.Position && squer.SquerStatus == SquareStatus.Ship)
+                
+                if (shootCoordinates == ship.Elements[i].Position && ship.Elements[i].SquereStatus == SquareStatus.Ship)
                 {
-                    squer.SquerStatus = SquareStatus.Hit;
+                    ship.Elements[i].ChangeSquereStatus(SquareStatus.Hit);
+                    board.ocean[shootCoordinates.x, shootCoordinates.y].ChangeSquereStatus(SquareStatus.Hit);
                     ship.ChangeShipStatus(ShipStatus.damaged);
                     return ShootResult.Hit;
 
                 }
             }
+            board.ocean[shootCoordinates.x, shootCoordinates.y].ChangeSquereStatus(SquareStatus.Miss);
             return ShootResult.Miss;
         }
 
 
-        public virtual ShootResult Shoot(Player oponent, (int x, int y) shootCoordinates)
+        public virtual ShootResult Shoot(Player oponent, (int x, int y) shootCoordinates, Board board)
         {
             List<Ship> oponentFleet = oponent.Fleet;
             for (int i = 0; i < oponentFleet.Count; i++)
             {
-                ShootResult shootResult = CheckIfHit(shootCoordinates, oponentFleet[i]);
+                ShootResult shootResult = CheckIfHit(shootCoordinates, oponentFleet[i], board);
                 if (shootResult == ShootResult.Hit)
                 {
+
                     if (oponentFleet[i].CheckIfShipSink())
                     {
                         oponentFleet[i].ShipSink();

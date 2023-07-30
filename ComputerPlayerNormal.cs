@@ -11,7 +11,7 @@ namespace OOP_Battleship
 
     internal class ComputerPlayerNormal : ComputerPlayerEasy
     {
-
+        /*
         public HashSet<(int, int)> SquersToExclude = new HashSet<(int, int)>();
         public HashSet<(int, int)> PositionToCheck = new HashSet<(int, int)>();
         private List<(int, int)> offsets = new List<(int, int)>
@@ -262,6 +262,6 @@ namespace OOP_Battleship
             FindSquaresToExclude(board);
             return message;
         }
-
+        */
     }
 }

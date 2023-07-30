@@ -9,39 +9,45 @@ namespace OOP_Battleship
     public class Square
     {
         public (int x, int y) Position;
-        public SquareStatus SquerStatus;
+        public SquareStatus SquereStatus;
 
-        public Square((int x, int y) position, SquareStatus status)
+        public Square((int x, int y) position)
         {
             this.Position = position;
-            this.SquerStatus = status;
+
         }
 
-        public SquareStatus SquareStatus { get; internal set; }
+
 
         public string GetCharacter()
         {
             string result = "";
-            switch ((int)this.SquerStatus)
+            switch ((int)this.SquereStatus)
             {
                 case 0:
-                    result = "\u224B";
+                    result = "~";
                     break;
                 case 1:
-                    result = "\u25CC";
+                    result = "M";
                     break;
                 case 2:
-                    result = "\u2388";
+                    result = "S";
                     break;
                 case 3:
-                    result = "\u2BCC";
+                    result = "H";
                     break;
                 case 4:
-                    result = "\u2737";
+                    result = "X";
 
                     break;
             }
             return result;
+        }
+
+        public void ChangeSquereStatus(SquareStatus status)
+        {
+            SquereStatus = status;
+
         }
     }
 }

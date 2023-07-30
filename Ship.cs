@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Battleship
 {
-    internal class Ship
+    public class Ship
     {
         public List<Square> Elements;
         public ShipTypes Type { get; init; }
@@ -24,6 +24,8 @@ namespace OOP_Battleship
 
 
         }
+
+
         public void ChangeShipStatus(ShipStatus status)
         {
             this.Status = status;
@@ -32,7 +34,7 @@ namespace OOP_Battleship
         public bool CheckIfShipSink()
         {
             List<Square> list = this.Elements;
-            return list.All(n => n.SquerStatus == SquareStatus.Hit);
+            return list.All(n => n.SquereStatus == SquareStatus.Hit);
         }
 
         public void ShipSink()
@@ -40,7 +42,7 @@ namespace OOP_Battleship
             for (int i = 0; i < this.Elements.Count; i++)
             {
                 Square square = this.Elements[i];
-                square.SquerStatus = SquareStatus.Sink;
+                square.ChangeSquereStatus(SquareStatus.Sink);
                 this.ChangeShipStatus(ShipStatus.destroyed);
             }
 

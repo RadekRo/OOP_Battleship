@@ -1,7 +1,7 @@
 ﻿namespace OOP_Battleship
 {
     class ComputerPlayerEasy : Player
-    {
+    {/*
         private string _name = "CPU";
         public override (int x, int y) GetShootCoordinates()
         {
@@ -33,6 +33,6 @@
             return Shoot(oponent, coordinates);
 
         }
-
+        */
     }
 }

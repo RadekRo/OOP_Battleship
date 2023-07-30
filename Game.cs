@@ -34,24 +34,31 @@ namespace OOP_Battleship
             boardFactory.ManualPlacement(playerOneBoard, playerOne);
             boardFactory.ManualPlacement(playerTwoBoard, playerTwo);
             playerOneBoard = new Board();
+
             playerTwoBoard = new Board();
+
             currentBoard = playerOneBoard;
 
             while (Battleship.gameActive)
             {
+                playerOneBoard.AddPlayertoBoard(playerTwo);
+
+                playerTwoBoard.AddPlayertoBoard(playerOne);
                 Console.Clear();
                 Console.WriteLine($"Player {currentPlayer} shooting phase");
                 Console.WriteLine(currentBoard);
                 //Console.WriteLine(playerOne.IsPlayerDead());
                 if (currentPlayer == 1)
                 {
+
                     var input = playerOne.GetShootCoordinates();
-                    Console.WriteLine(playerOne.Shoot(playerTwo, input));
+
+                    Console.WriteLine(playerOne.Shoot(playerTwo, input, currentBoard));
 
                     //Console.WriteLine(input);
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     currentPlayer = 2;
-                    currentBoard = playerOneBoard;
+                    currentBoard = playerTwoBoard;
                 }
                 else
                 {
@@ -59,7 +66,7 @@ namespace OOP_Battleship
                     //Console.WriteLine(input);
                     //Console.ReadLine();
                     currentPlayer = 1;
-                    currentBoard = playerTwoBoard;
+                    currentBoard = playerOneBoard;
                 }
             }
         }

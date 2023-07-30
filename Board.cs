@@ -22,12 +22,33 @@ namespace OOP_Battleship
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    ocean[i, j] = new Square((i, j), SquareStatus.Empty);
+                    ocean[i, j] = new Square((i, j));
+                    ocean[i, j].SquereStatus = SquareStatus.Empty;
 
                 }
             }
         }
 
+        public void UpdateOcean(int i, int j, SquareStatus status)
+        {
+
+            ocean[i, j].SquereStatus = status;
+        }
+        public void AddPlayertoBoard(Player player)
+        {
+            foreach (Ship ship in player.Fleet)
+            {
+                for (int i = 0; i < (int)ship.Type; i++)
+                {
+                    {
+                        if (ship.Elements[i].SquereStatus != SquareStatus.Ship)
+                        {
+                            ocean[ship.Elements[i].Position.x, ship.Elements[i].Position.y] = ship.Elements[i];
+                        }
+                    }
+                }
+            }
+        }
         public override string ToString()
         {
 
