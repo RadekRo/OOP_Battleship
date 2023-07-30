@@ -13,10 +13,7 @@ namespace OOP_Battleship
         private Display displayManager = new Display();
         private Input inputManager = new Input();
 
-
         // ---------
-
-
 
         private bool CanPlaceShip(Board board, Ship ship, (int x, int y) coordinates)
         {
@@ -25,12 +22,12 @@ namespace OOP_Battleship
 
             if (ship.IsVertical)
             {
-                // if (y + size > BoardSize) return false
+                if (coordinates.y + size > 10) return false;
             }
 
             else
             {
-                // if (y + size > BoardSize) return false
+                if (coordinates.y - size < 1) return false;
             }
 
             var initialPos = ship.Elements[0].Position;
@@ -112,7 +109,7 @@ namespace OOP_Battleship
             int shipSize = (int)shipType;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"Player {player.Name}. Deploy your fleet!");
+            Console.WriteLine($"Player {player.PlayerNumber}. Deploy your fleet!");
             Console.ResetColor();
             Console.WriteLine("------------------------------");
             displayManager.PrintBoard(board);

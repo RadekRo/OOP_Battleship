@@ -1,4 +1,6 @@
-﻿namespace OOP_Battleship
+﻿using System.Xml.Serialization;
+
+namespace OOP_Battleship
 {
     class Player
     {
@@ -17,8 +19,7 @@
         public List<Ship> Fleet = new List<Ship>();
         public bool IsAlive { get; private set; } = true;
 
-        public int PlayerNumber { get; init; }
-
+        public int PlayerNumber { get; set; }
 
         public virtual (int x, int y) GetShootCoordinates()
         {
